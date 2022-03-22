@@ -247,10 +247,10 @@ void onMessage(const SNMP::Message *message, const IPAddress from,
         Serial.print(mpod.getMeasurementSenseVoltage());
         Serial.print(" V (");
         Serial.print(mpod.getVoltage());
-        Serial.print(")  current ");
+        Serial.print(") current ");
         Serial.print(mpod.getMeasurementCurrent());
         Serial.print(" A (");
-        Serial.print(mpod.getVoltage());
+        Serial.print(mpod.getCurrent());
         Serial.print(") rise rate ");
         Serial.print(mpod.getVoltageRiseRate());
         Serial.println(" V/s");
