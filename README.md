@@ -160,6 +160,8 @@ void loop() {
 
 [Manager.ino](examples/Manager/Manager.ino) is a complete exemple of an SNMP manager implementation.
 
+[MPOD.ino](examples/MPOD/MPOD.ino) is another exemple of an SNMP manager implementation with use of SETREQUEST.
+
 ## Limitations
 - Message size is limited to 512 bytes
 - SequenceBER is limited to 16 objects, so 8 variables (OID and value)
@@ -169,7 +171,6 @@ void loop() {
 These limitations should be removed in future releases.
 
 ## TODO
-- Write an example for SETREQUEST message
 - Use dynamic allocation for buffers (Message, OctetString and ObjectIdntifier)
 - Use vector for dynamic arrays (SequenceBER)
 - Add traps support
