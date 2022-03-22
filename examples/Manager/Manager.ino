@@ -55,7 +55,7 @@ public:
         };
 
         static inline const char *STRING[] = {
-                "1.3.6.1.2.1.33.1.4.1.0 ",
+                "1.3.6.1.2.1.33.1.4.1.0",
                 "1.3.6.1.2.1.33.1.2.1.0",
                 "1.3.6.1.2.1.33.1.2.3.0",
                 "1.3.6.1.2.1.33.1.2.4.0",
@@ -161,6 +161,7 @@ void onMessage(const SNMP::Message *message, const IPAddress from,
     const char *BATTERYSTATUS[] = { "UNKNOWN", "NORMAL", "LOW", "DEPLETED" };
     // Check if message is from UPS
     if (ups.message(message)) {
+        Serial.println();
         Serial.print("UPS output source ");
         Serial.println(OUTPUTSOURCE[ups.getOutputSource() - 1]);
         Serial.print("UPS battery status ");
@@ -169,7 +170,7 @@ void onMessage(const SNMP::Message *message, const IPAddress from,
         Serial.print(ups.getEstimatedMinutesRemaining());
         Serial.println(" minutes");
         Serial.print("UPS estimated charge remaining ");
-        Serial.print(ups.getEstimatedMinutesRemaining());
+        Serial.print(ups.getEstimatedChargeRemaining());
         Serial.println(" %");
     }
 }
