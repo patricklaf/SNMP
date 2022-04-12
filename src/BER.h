@@ -10,7 +10,44 @@ namespace SNMP {
 //#include <vector>
 
 enum {
-    VERSION1, VERSION2C,
+    VERSION1,  // 0
+    VERSION2C, // 1
+};
+
+// Error status
+enum {
+    // Version 1
+    NO_ERROR,             // 0
+    TOO_BIG,              // 1
+    NO_SUCH_NAME,         // 2
+    BAD_VALUE,            // 3
+    READ_ONLY,            // 4
+    GEN_ERR,              // 5
+    // Version 2C
+    NO_ACCESS,            // 6
+    WRONG_TYPE,           // 7
+    WRONG_LENGTH,         // 8
+    WRONG_ENCODING,       // 9
+    WRONG_VALUE,          // 10
+    NO_CREATION,          // 11
+    INCONSISTENT_VALUE,   // 12
+    RESOURCE_UNAVAILABLE, // 13
+    COMMIT_FAILED,        // 14
+    UNDO_FAILED,          // 15
+    AUTHORIZATION_ERROR,  // 16
+    NOT_WRITABLE,         // 17
+    INCONSISTENT_NAME,    // 18
+};
+
+// Trap
+enum {
+    COLD_START,             // 0
+    WARM_START,             // 1
+    LINK_DOWN,              // 2
+    LINK_UP,                // 3
+    AUTHENTICATION_FAILURE, // 4
+    EGP_NEIGHBOR_LOSS,      // 5
+    ENTERPRISE_SPECIFIC,    // 6
 };
 
 // Class ..
@@ -48,10 +85,18 @@ enum {
     // Context
     TYPE_NOSUCHOBJECT = CLASS_CONTEXT | 0x00,                  // 0x80
     TYPE_NOSUCHINSTANCE,                                       // 0x81
+    TYPE_ENDOFMIBVIEW,                                         // 0x82
+    // Version 1
     TYPE_GETREQUEST = CLASS_CONTEXT | FORM_CONSTRUCTED | 0x00, // 0xA0
     TYPE_GETNEXTREQUEST,                                       // 0xA1
     TYPE_GETRESPONSE,                                          // 0xA2
     TYPE_SETREQUEST,                                           // 0xA3
+    TYPE_TRAP,                                                 // 0xA4
+    // Version 2C
+    TYPE_GETBULKREQUEST,                                       // 0xA5
+    TYPE_INFORMREQUEST,                                        // 0xA6
+    TYPE_SNMPV2TRAP,                                           // 0xA7
+    TYPE_REPORT,                                               // 0xA8
     // Opaque type
     TYPE_OPAQUEFLOAT = 0x30 | TYPE_FLOAT,                      // 0x78
 };
@@ -126,7 +171,7 @@ public:
         return _length;
     }
 
-    virtual const int getSize() {
+    virtual const int getSize(const bool force = false) {
         return _size;
     }
 
@@ -172,6 +217,15 @@ public:
 
     void setValue(const int value) {
         _value = value;
+        // L
+        _length = 0;
+        do {
+            _value >>= 8;
+            _length++;
+        } while (_value);
+        // V
+        _value = value;
+        _size = _length + 2;
     }
 
 private:
@@ -180,6 +234,7 @@ private:
 
 class OctetStringBER: public BER {
 public:
+    OctetStringBER(const char *value);
     OctetStringBER(const char *value, const unsigned int length);
     virtual ~OctetStringBER() {
     }
@@ -189,6 +244,15 @@ public:
 
     const char* getValue() const {
         return _value;
+    }
+
+    void setValue(const char *value, const unsigned int length) {
+        // L
+        _length = length < SIZE_OCTETSTRING ? length : SIZE_OCTETSTRING;
+        Length __length(_length);
+        // V
+        memcpy(_value, value, _length);
+        _size = _length + __length.getSize() + 1;
     }
 
     const bool getBit(const int index) const {
@@ -225,6 +289,36 @@ public:
         return _value;
     }
 
+    void setValue(const char *value) {
+        // L, V
+        strncpy(_value, value, SIZE_OBJECTIDENTIFIER);
+        unsigned int index = 0;
+        unsigned int subidentifier = 0;
+        char *token = (char*) _value;
+        while (token != NULL) {
+            switch (index) {
+            case 0:
+                subidentifier = atoi(token);
+                break;
+            case 1:
+                subidentifier = subidentifier * 40 + atoi(++token);
+                _length++;
+                break;
+            default: {
+                subidentifier = atoi(++token);
+                do {
+                    subidentifier >>= 7;
+                    _length++;
+                } while (subidentifier);
+            }
+                break;
+            }
+            token = strchr(token, '.');
+            index++;
+        }
+        _size = _length + 2;
+    }
+
 private:
     char _value[SIZE_OBJECTIDENTIFIER] = { 0 };
 };
@@ -238,15 +332,28 @@ public:
     virtual const int encode(char *buffer);
     virtual const int decode(char *buffer);
 
-    void add(BER *ber) {
+    virtual const int getSize(const bool force = false) {
+        if (force) {
+            _length = 0;
+            for (unsigned int index = 0; index < _count; ++index) {
+                _length += _bers[index]->getSize(true);
+            }
+            _size = _length + 2;
+        }
+        return _size;
+    }
+
+    BER* add(BER *ber) {
 //		_bers.push_back(ber);
         _bers[_count++] = ber;
         _length += ber->getSize();
         _size = _length + 2;
+        return ber;
     }
 
     void remove() {
         if (_count) {
+            // FIXME maybe useless
             _length -= _bers[--_count]->getSize();
             _size = _length + 2;
 //			delete  _bers[_count];
@@ -262,14 +369,35 @@ public:
         return _count;
     }
 
-    const char* getOID() const {
+private:
+//	std::vector<BER*> _bers;
+    unsigned int _count = 0;
+    BER *_bers[SIZE_SEQUENCE];
+
+    friend class VarBind;
+    friend class VarBindList;
+};
+
+class VarBind: public SequenceBER {
+public:
+    VarBind(const char *oid, BER *value = nullptr) :
+            SequenceBER() {
+        add(new ObjectIdentifierBER(oid));
+        if (value) {
+            add(value);
+        } else {
+            add(new NullBER);
+        }
+    }
+
+    const char* getName() const {
         // FIXME 'dynamic_cast' not permitted with '-fno-rtti'
-        //		ObjectIdentifierBER *ber = dynamic_cast<ObjectIdentifierBER*>(_bers[0]);
-        //		if (ber) {
-        //			return ber->getValue();
-        //		}
+        //      ObjectIdentifierBER *ber = dynamic_cast<ObjectIdentifierBER*>(_bers[0]);
+        //      if (ber) {
+        //          return ber->getValue();
+        //      }
         if (_bers[0]->getType() == TYPE_OBJECTIDENTIFIER) {
-            return ((ObjectIdentifierBER*) _bers[0])->getValue();
+            return static_cast<ObjectIdentifierBER*>(_bers[0])->getValue();
         }
         return nullptr;
     }
@@ -277,11 +405,13 @@ public:
     BER* getValue() const {
         return _bers[1];
     }
+};
 
-private:
-//	std::vector<BER*> _bers;
-    unsigned int _count = 0;
-    BER *_bers[SIZE_SEQUENCE];
+class VarBindList: public SequenceBER {
+public:
+    VarBind* operator [](const unsigned int index) {
+        return static_cast<VarBind*>(_bers[index]);
+    }
 };
 
 class IPAddressBER: public BER {
@@ -293,8 +423,12 @@ public:
     virtual const int encode(char *buffer);
     virtual const int decode(char *buffer);
 
+    const uint8_t* getValue() {
+        return _value;
+    }
+
 private:
-    char _value[SIZE_IPADDRESS] = { 0 };
+    uint8_t _value[SIZE_IPADDRESS] = { 0 };
 };
 
 class Counter32BER: public IntegerBER {
@@ -326,6 +460,14 @@ public:
     virtual const int encode(char *buffer);
     virtual const int decode(char *buffer);
 
+    virtual const int getSize(const bool force = false) {
+        if (force && _ber) {
+            _length = _ber->getSize(true);
+            _size = _length + 2;
+        }
+        return _size;
+    }
+
     BER* getBER() {
         return _ber;
     }
@@ -349,6 +491,27 @@ public:
 
 protected:
     float _value = 0;
+};
+
+class NoSuchObjectBER: public NullBER {
+public:
+    NoSuchObjectBER();
+    virtual ~NoSuchObjectBER() {
+    }
+};
+
+class NoSuchInstanceBER: public NullBER {
+public:
+    NoSuchInstanceBER();
+    virtual ~NoSuchInstanceBER() {
+    }
+};
+
+class EndOfMIBViewBER: public NullBER {
+public:
+    EndOfMIBViewBER();
+    virtual ~EndOfMIBViewBER() {
+    }
 };
 
 class OpaqueFloatBER: public FloatBER {

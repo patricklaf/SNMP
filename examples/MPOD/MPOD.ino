@@ -18,13 +18,12 @@ EthernetUDP udp;
 SNMP::Manager snmp;
 
 // Use some SNMP classes
-using SNMP::SequenceBER;
-using SNMP::ObjectIdentifierBER;
-using SNMP::NullBER;
 using SNMP::IntegerBER;
+using SNMP::OctetStringBER;
 using SNMP::OpaqueBER;
 using SNMP::OpaqueFloatBER;
-using SNMP::OctetStringBER;
+using SNMP::VarBind;
+using SNMP::VarBindList;
 
 // This class encapsulates the MPOD SNMP interface
 class MPOD {
@@ -43,7 +42,7 @@ public:
             COUNT,
         };
 
-        static inline const char *STRING[] = {
+        static inline const char *NAMES[] = {
                 "1.3.6.1.4.1.19947.1.3.2.1.4.1",
                 "1.3.6.1.4.1.19947.1.3.2.1.5.1",
                 "1.3.6.1.4.1.19947.1.3.2.1.7.1",
@@ -53,9 +52,11 @@ public:
                 "1.3.6.1.4.1.19947.1.3.2.1.13.1",
         };
 
-        static unsigned int match(const char *oid) {
+        // Returns index of OID equals to name
+        // Returns COUNT if none
+        static unsigned int match(const char *name) {
             for (unsigned int index = 0; index < COUNT; ++index) {
-                if (strcmp(STRING[index], oid) == 0) {
+                if (strcmp(NAMES[index], name) == 0) {
                     return index;
                 }
             }
@@ -67,65 +68,34 @@ public:
     SNMP::Message* setup() {
         // Use read/write community, not read-only
         SNMP::Message* message = new SNMP::Message(SNMP::VERSION2C, "guru", SNMP::TYPE_SETREQUEST);
-        // OUTPUT SWITCH
-        // Create a variable, an ASN.1 sequence
-        SequenceBER* outputswitch = new SequenceBER();
-        // Add the OID
-        outputswitch->add(new ObjectIdentifierBER(OID::STRING[OID::OUTPUTSWITCH]));
-        // Add the value. In a SETREQUEST, use object type and set the value.
-        // For OUTPUT SWITCH, INTEGER type, 0 is OFF and 1 is ON. 
-        outputswitch->add(new IntegerBER(0));
-        // And finally add the variable to the message
-        message->add(outputswitch);
-        // OUTPUT VOLTAGE
-        SequenceBER* outputvoltage = new SequenceBER();
-        outputvoltage->add(new ObjectIdentifierBER(OID::STRING[OID::OUTPUTVOLTAGE]));
-        // OUTPUT VOLTAGE is an opaque float embedded in an opaque object.
-        outputvoltage->add(new OpaqueBER(new OpaqueFloatBER(10.0)));
-        message->add(outputvoltage);
-        // OUTPUT CURRENT
-        SequenceBER* outputcurrent = new SequenceBER();
-        outputcurrent->add(new ObjectIdentifierBER(OID::STRING[OID::OUTPUTCURRENT]));
-        outputcurrent->add(new OpaqueBER(new OpaqueFloatBER(0.001)));
-        message->add(outputcurrent);
-        // OUTPUT VOLTAGE RISE RATE
-        SequenceBER* outputvoltageriserate = new SequenceBER();
-        outputvoltageriserate->add(new ObjectIdentifierBER(OID::STRING[OID::OUTPUTVOLTAGERISERATE]));
+        // In SETREQUEST, use node type and set the value.
+        // OUTPUT SWITCH, integer type, 0 is OFF and 1 is ON.
+        message->add(OID::NAMES[OID::OUTPUTSWITCH], new IntegerBER(0));
+        // OUTPUT VOLTAGE is an opaque float embedded in an opaque node
+        message->add(OID::NAMES[OID::OUTPUTVOLTAGE], new OpaqueBER(new OpaqueFloatBER(10.0)));
+        // OUTPUT CURRENT is an opaque float embedded in an opaque node
+        message->add(OID::NAMES[OID::OUTPUTCURRENT], new OpaqueBER(new OpaqueFloatBER(0.001)));
         // OUTPUT VOLTAGE RISE RATE is negative. Don't ask me why...
-        outputvoltageriserate->add(new OpaqueBER(new OpaqueFloatBER(-1.0)));
-        message->add(outputvoltageriserate);
+        message->add(OID::NAMES[OID::OUTPUTVOLTAGERISERATE], new OpaqueBER(new OpaqueFloatBER(-1.0)));
         return message;
     }
 
     // Create an SNMP GETREQUEST message
     SNMP::Message* read() {
         SNMP::Message* message = new SNMP::Message(SNMP::VERSION2C, "public", SNMP::TYPE_GETREQUEST);
-        // OUTPUT STATUS
-        SequenceBER* outputstatus = new SequenceBER();
-        outputstatus->add(new ObjectIdentifierBER(OID::STRING[OID::OUTPUTSTATUS]));
-        outputstatus->add(new NullBER);
-        message->add(outputstatus);
-        // OUTPUT MEASUREMENT SENSE VOLTAGE
-        SequenceBER* outputmeasurementsensevoltage = new SequenceBER();
-        outputmeasurementsensevoltage->add(new ObjectIdentifierBER(OID::STRING[OID::OUTPUTMEASUREMENTSENSEVOLTAGE]));
-        outputmeasurementsensevoltage->add(new NullBER);
-        message->add(outputmeasurementsensevoltage);
-        // OUTPUT MEASUREMENT CURRENT
-        SequenceBER* outputmeasurementcurrent = new SequenceBER();
-        outputmeasurementcurrent->add(new ObjectIdentifierBER(OID::STRING[OID::OUTPUTMEASUREMENTCURRENT]));
-        outputmeasurementcurrent->add(new NullBER);
-        message->add(outputmeasurementcurrent);
+        // In GETREQUEST, values are always of type NULL.
+        message->add(OID::NAMES[OID::OUTPUTSTATUS]);
+        message->add(OID::NAMES[OID::OUTPUTMEASUREMENTSENSEVOLTAGE]);
+        message->add(OID::NAMES[OID::OUTPUTMEASUREMENTCURRENT]);
         return message;
     }
 
     // Create an SNMP SETREQUEST message to switch on or off the MPOD
     SNMP::Message* output(const bool on) {
         SNMP::Message* message = new SNMP::Message(SNMP::VERSION2C, "guru", SNMP::TYPE_SETREQUEST);
-        // OUTPUT SWITCH
-        SequenceBER* outputswitch = new SequenceBER();
-        outputswitch->add(new ObjectIdentifierBER(OID::STRING[OID::OUTPUTSWITCH]));
-        outputswitch->add(new IntegerBER(on ? 1 : 0));
-        message->add(outputswitch);
+        // In SETREQUEST, use node type and set the value.
+        // OUTPUT SWITCH, integer type, 0 is OFF and 1 is ON.
+        message->add(OID::NAMES[OID::OUTPUTSWITCH], new IntegerBER(on ? 1 : 0));
         return message;
     }
 
@@ -133,20 +103,19 @@ public:
     bool message(const SNMP::Message *message) {
         unsigned int found = 0;
         unsigned int index = 0;
-        // Get the variables from the message.
-        // This is an ASN.1 sequence. See BER.h and BER.cpp.
-        SequenceBER *variables = message->getVariables();
-        for (unsigned int index = 0; index < variables->count(); ++index) {
-            // Each variable is also a sequence of 2 objects:
+        // Get the variable binding list from the message.
+        VarBindList *varbindlist = message->getVarBindList();
+        for (unsigned int index = 0; index < varbindlist->count(); ++index) {
+            // Each variable binding is a sequence of 2 objects:
             // - First one is and ObjectIdentifierBER. It holds the OID
             // - Second is the value of any type
-            SequenceBER *variable = (SequenceBER*) (*variables)[index];
+            VarBind *varbind = (*varbindlist)[index];
             // There is a convenient function to get the OID as a const char*
-            const char *oid = variable->getOID();
-            switch (OID::match(oid)) {
+            const char *name = varbind->getName();
+            switch (OID::match(name)) {
             case OID::OUTPUTSTATUS: {
                 // OUTPUTSTATUS is defined in MIB as BITS but encoded as OCTETSTRING by MPOD
-                OctetStringBER *status = (OctetStringBER*) variable->getValue();
+                OctetStringBER *status = static_cast<OctetStringBER*>(varbind->getValue());
                 _on = status->getBit(0);
                 _up = status->getBit(11);
                 _down = status->getBit(12);
@@ -154,35 +123,38 @@ public:
                 found++;
                 break;
             case OID::OUTPUTMEASUREMENTSENSEVOLTAGE:
-                // Use appropiate casts to get the final embeded opaque float value
-                _measurementSenseVoltage = ((OpaqueFloatBER*)((OpaqueBER*) variable->getValue())->getBER())->getValue();
+                // Use private helper function to extract float value
+                _measurementSenseVoltage = getFloatFromVarBind(varbind);
                 found++;
                 break;
             case OID::OUTPUTMEASUREMENTCURRENT:
-                _measurementCurrent = ((OpaqueFloatBER*)((OpaqueBER*) variable->getValue())->getBER())->getValue();
+                _measurementCurrent = getFloatFromVarBind(varbind);
                 found++;
                 break;
             case OID::OUTPUTSWITCH:
-                _on = ((IntegerBER*) variable->getValue())->getValue();
+                // Use private helper function to extract integer value
+                _on = getIntegerFromVarBind(varbind);
                 found++;
                 break;
             case OID::OUTPUTVOLTAGE:
-                _voltage = ((OpaqueFloatBER*)((OpaqueBER*) variable->getValue())->getBER())->getValue();
+                _voltage = getFloatFromVarBind(varbind);
                 found++;
                 break;
             case OID::OUTPUTCURRENT:
-                _current = ((OpaqueFloatBER*)((OpaqueBER*) variable->getValue())->getBER())->getValue();
+                _current = getFloatFromVarBind(varbind);
                 found++;
                 break;
             case OID::OUTPUTVOLTAGERISERATE:
-                _voltageRiseRate = ((OpaqueFloatBER*)((OpaqueBER*) variable->getValue())->getBER())->getValue();
+                _voltageRiseRate = getFloatFromVarBind(varbind);
                 found++;
                 break;
             }
         }
+        // Return true if nodes found, that means this is a valid response from MPOD
         return found;
     }
 
+    // Getters
     bool isOn() const {
         return _on;
     }
@@ -216,8 +188,18 @@ public:
     }
 
 private:
+    // Use appropriate cast to get integer value
+    unsigned int getIntegerFromVarBind(const VarBind *varbind) {
+        return static_cast<IntegerBER*>(varbind->getValue())->getValue();
+    }
+
+    // Use appropriate casts to get embedded opaque float value
+    float getFloatFromVarBind(const VarBind *varbind) {
+        return static_cast<OpaqueFloatBER*>(static_cast<OpaqueBER*>(varbind->getValue())->getBER())->getValue();
+    }
+
     bool _on = false;
-    bool _up= false;
+    bool _up = false;
     bool _down = false;
     float _measurementSenseVoltage = 0;
     float _measurementCurrent = 0;
@@ -229,8 +211,7 @@ private:
 MPOD mpod;
 
 // Event handler to process SNMP messages
-void onMessage(const SNMP::Message *message, const IPAddress from,
-        const uint16_t port) {
+void onMessage(const SNMP::Message *message, const IPAddress remote, const uint16_t port) {
     // Check if message is from MPOD
     if (mpod.message(message)) {
         Serial.println();
@@ -271,7 +252,7 @@ void setup() {
     start = millis();
     // MPOD
     SNMP::Message *message = mpod.setup();
-    snmp.send(message, IPAddress(192, 168, 2, 3), PORT_SNMP);
+    snmp.send(message, IPAddress(192, 168, 2, 3), SNMP::PORT::SNMP);
     delete message;
 }
 
@@ -299,7 +280,7 @@ void loop() {
         if (output != NONE) {
             // If ON or OFF, send SETREQUEST to MPOD
             SNMP::Message *message = mpod.output(output == ON);
-            snmp.send(message, IPAddress(192, 168, 2, 3), PORT_SNMP);
+            snmp.send(message, IPAddress(192, 168, 2, 3), SNMP::PORT::SNMP);
             delete message;
         }
     }
@@ -308,7 +289,7 @@ void loop() {
         start = millis();
         // Create message to query MPOD and send it
         SNMP::Message* message = mpod.read();
-        snmp.send(message, IPAddress(192, 168, 2, 3), PORT_SNMP);
+        snmp.send(message, IPAddress(192, 168, 2, 3), SNMP::PORT::SNMP);
         delete message;
     }
 }

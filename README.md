@@ -1,6 +1,9 @@
 # SNMP
 
-Simple Network Managment Protocol library to write agent or manager for Arduino boards.
+[![GitHub release](https://img.shields.io/github/v/release/patricklaf/SNMP)](https://github.com/patricklaf/SNMP/releases/latest)
+![GitHub All Releases](https://img.shields.io/github/downloads/patricklaf/SNMP/total.svg)
+
+Simple Network Management Protocol library to write agent or manager for Arduino boards.
 
 The library supports:
 
@@ -10,8 +13,12 @@ The library supports:
 
 - SNMP messages
   - GETREQUEST
-  - SETREQUEST
+  - GETNEXTREQUEST
   - GETRESPONSE
+  - SETREQUEST
+  - TRAP
+  - INFORMREQUEST
+  - SNMPV2TRAP
 
 - SNMP objects
   - Boolean
@@ -37,7 +44,7 @@ There is only one header to include to use the library.
 
 ### Agent
 
-An SNMP agent receive request from and send response to an SNMP manager.
+An SNMP agent receives request from and sends response to an SNMP manager.
 
 Declare an SNMP agent like this. An UDP variable is also needed.
 
@@ -60,54 +67,36 @@ void setup() {
 }
 ```
 
-The function *onMessage()* will be called everytime an SNMP message is received. 
+The function *onMessage()* will be called every time an SNMP message is received.
 
 ```cpp
-void onMessage(const SNMP::Message *message, const IPAddress from, const uint16_t port) {
-    bool send = false;
-    // Get the variables from the message.
-    // This is an ASN.1 sequence. See BER.h and BER.cpp.
-    SequenceBER *variables = message->getVariables();
-    for (unsigned int index = 0; index < variables->count(); ++index) {
-        // Each variable is also a sequence of 2 objects:
+void onMessage(const SNMP::Message *message, const IPAddress remote, const uint16_t port) {
+    // Get the variable binding list from the message.
+    VarBindList *varbindlist = message->getVarBindList();
+    for (unsigned int index = 0; index < varbindlist->count(); ++index) {
+        // Each variable binding is a sequence of 2 objects:
         // - First one is and ObjectIdentifierBER. It holds the OID
-        // - Second is the value of any type, not used here
-        SequenceBER *variable = (SequenceBER*) (*variables)[index];
+        // - Second is the value of any type
+        VarBind *varbind = (*varbindlist)[index];
         // There is a convenient function to get the OID as a const char*
-        const char *oid = variable->getOID();
-        if (strcmp(SYSNAME_OID, oid) == 0) {
-            // System name is requested. We have to send a response.
-            send = true;
-        }
+        const char *name = varbind->getName();
+        if (strcmp(SYSNAME_OID, name) == 0) {
+            // System name is requested. Need to send a response.
+            // Create an SNMP message for response
+            SNMP::Message *response = new SNMP::Message(SNMP::VERSION2C, "public", SNMP::TYPE_GETRESPONSE);
+            // The response must have the same request-id as the request
+            response->setRequestID(message->getRequestID());
+            // SYSNAME
+            // Create an OctetStringBER to hold the variable binding value
+            OctetStringBER* value = new OctetStringBER(SYSNAME_VALUE, strlen(SYSNAME_VALUE));
+            // Add the variable binding to the message
+            response->add(SYSNAME_OID, value);
+            // Send the response to remote IP and port
+            snmp.send(response, remote, port);
+            // Avoid memory leak
+            delete response; 
+       }
     }
-    if (send) {
-        // The response must have the same request-id as the request
-        sendResponse(from, port, message->getRequestID());
-    }
-}
-```
-
-The function *sendResponse()*, used in *onMessage()* show how to create and send an SNMP message.
-
-```cpp
-// Send an SNMP response
-void sendResponse(const IPAddress to, const uint16_t port, const unsigned int requestID) {
-    // Create an SNMP message
-    SNMP::Message *message = new SNMP::Message(SNMP::VERSION2C, "public", SNMP::TYPE_GETRESPONSE);
-    // Set request-id as the request
-    message->setRequestID(requestID);
-    // SYSNAME
-    // Create a sequence to hold the variable
-    SequenceBER *sysname = new SequenceBER();
-    // Add the OID
-    sysname->add(new ObjectIdentifierBER(SYSNAME_OID));
-    // Add the system name value. An octet string is not null terminated, so we need to explicitly
-    // set the length
-    sysname->add(new OctetStringBER(SYSNAME_VALUE, strlen(SYSNAME_VALUE)));
-    message->add(sysname);
-    // Send the response to remote IP and port
-    snmp.send(message, to, port);
-    delete message;
 }
 ```
 
@@ -124,7 +113,7 @@ void loop() {
 
 ### Manager
 
-An SNMP manager send request to and receive response from an SNMP agent.
+An SNMP manager sends request to and receives response from an SNMP agent.
 
 Declare an SNMP manager like this. An UDP variable is also needed.
 
@@ -147,7 +136,7 @@ void setup() {
 }
 ```
 
-The function *onMessage()* will be called everytime an SNMP message is received. 
+The function *onMessage()* will be called every time an SNMP message is received. 
 
 In Arduino *loop()* function, the manager *loop()* function must be called frequently.
 
@@ -162,6 +151,8 @@ void loop() {
 
 [MPOD.ino](examples/MPOD/MPOD.ino) is another exemple of an SNMP manager implementation with use of SETREQUEST.
 
+[Advanced.ino](examples/Advanced/Advanced.ino) is the more complex exemple. It shows how to write an SNMP agent able to handle GETREQUEST, GETNEXTREQUEST and SETREQUEST and generate TRAP, INFORMREQUEST and SNMPV2TRAP.
+
 ## Limitations
 - Message size is limited to 512 bytes
 - SequenceBER is limited to 16 objects, so 8 variables (OID and value)
@@ -173,7 +164,6 @@ These limitations should be removed in future releases.
 ## TODO
 - Use dynamic allocation for buffers (Message, OctetString and ObjectIdntifier)
 - Use vector for dynamic arrays (SequenceBER)
-- Add traps support
 
 ## Acknowledgements
 This library is inspired by [SNMP Manager For ESP8266/ESP32/Arduino (and more)](https://github.com/shortbloke/Arduino_SNMP_Manager) authored by Martin Rowan.

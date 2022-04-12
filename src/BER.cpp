@@ -100,6 +100,7 @@ const int Length::decode(char *buffer) {
 // Boolean //
 /////////////
 
+// Fixed length
 // 01 01 XX
 BooleanBER::BooleanBER(const bool value) :
         BER(TYPE_BOOLEAN) {
@@ -134,16 +135,11 @@ const int BooleanBER::decode(char *buffer) {
 // Integer //
 /////////////
 
+// Variable length
 // 02 XX YY YY
 IntegerBER::IntegerBER(const int value) :
         BER(TYPE_INTEGER) {
-    _value = value;
-    do {
-        _value >>= 8;
-        _length++;
-    } while (_value);
-    _value = value;
-    _size = _length + 2;
+    setValue(value);
 }
 
 const int IntegerBER::encode(char *buffer) {
@@ -181,12 +177,14 @@ const int IntegerBER::decode(char *buffer) {
 // Octet String //
 //////////////////
 
+// Variable length
+OctetStringBER::OctetStringBER(const char *value) :
+        OctetStringBER(value, strlen(value)) {
+}
+
 OctetStringBER::OctetStringBER(const char *value, const unsigned int length) :
         BER(TYPE_OCTETSTRING) {
-    _length = length < SIZE_OCTETSTRING ? length : SIZE_OCTETSTRING;
-    memcpy(_value, value, _length);
-    Length __length(_length);
-    _size = _length + __length.getSize() + 1;
+    setValue(value, length);
 }
 
 const int OctetStringBER::encode(char *buffer) {
@@ -228,10 +226,10 @@ const int OctetStringBER::decode(char *buffer) {
 // Null //
 //////////
 
+// Fixed length
 // 05 00
 NullBER::NullBER() :
-        BER(TYPE_NULL) {
-    _size = 2;
+        NullBER(TYPE_NULL) {
 }
 
 NullBER::NullBER(const uint8_t type) :
@@ -262,34 +260,10 @@ const int NullBER::decode(char *buffer) {
 // Object Identifier //
 ///////////////////////
 
+// Variable length
 ObjectIdentifierBER::ObjectIdentifierBER(const char *value) :
         BER(TYPE_OBJECTIDENTIFIER) {
-    strncpy(_value, value, SIZE_OBJECTIDENTIFIER);
-    unsigned int index = 0;
-    unsigned int subidentifier = 0;
-    char *token = (char*) _value;
-    while (token != NULL) {
-        switch (index) {
-        case 0:
-            subidentifier = atoi(token);
-            break;
-        case 1:
-            subidentifier = subidentifier * 40 + atoi(++token);
-            _length++;
-            break;
-        default: {
-            subidentifier = atoi(++token);
-            do {
-                subidentifier >>= 7;
-                _length++;
-            } while (subidentifier);
-        }
-            break;
-        }
-        token = strchr(token, '.');
-        index++;
-    }
-    _size = _length + 2;
+    setValue(value);
 }
 
 const int ObjectIdentifierBER::encode(char *buffer) {
@@ -370,6 +344,7 @@ const int ObjectIdentifierBER::decode(char *buffer) {
 // Sequence //
 //////////////
 
+// Variable length
 SequenceBER::SequenceBER() :
         BER(TYPE_SEQUENCE) {
     _count = 0;
@@ -486,6 +461,7 @@ const int SequenceBER::decode(char *buffer) {
 // IP Address //
 ////////////////
 
+// Fixed length
 IPAddressBER::IPAddressBER(IPAddress value) :
         BER(TYPE_IPADDRESS) {
     _length = SIZE_IPADDRESS;
@@ -553,6 +529,7 @@ TimeTicksBER::TimeTicksBER(const unsigned int value) :
 // Opaque //
 ////////////
 
+// Variable length
 // 44 07
 //       9F 78 04
 //                C2 C7 FF FE
@@ -560,7 +537,7 @@ OpaqueBER::OpaqueBER(BER *ber) :
         BER(TYPE_OPAQUE) {
     if (ber) {
         _ber = ber;
-        _length = ber->getSize();
+        _length = _ber->getSize();
         _size = _length + 2;
     }
 }
@@ -626,6 +603,7 @@ const int OpaqueBER::decode(char *buffer) {
 // Float //
 ///////////
 
+// Fixed length
 // 48 04 XX XX XX XX
 FloatBER::FloatBER(const float value) :
         BER(TYPE_FLOAT) {
@@ -670,10 +648,35 @@ const int FloatBER::decode(char *buffer) {
     return _size;
 }
 
+////////////////////
+// No Such Object //
+////////////////////
+
+NoSuchObjectBER::NoSuchObjectBER() : NullBER() {
+    _type = TYPE_NOSUCHOBJECT;
+}
+
+//////////////////////
+// No Such Instance //
+//////////////////////
+
+NoSuchInstanceBER::NoSuchInstanceBER() : NullBER() {
+    _type = TYPE_NOSUCHINSTANCE;
+}
+
+/////////////////////
+// End Of MIB View //
+/////////////////////
+
+EndOfMIBViewBER::EndOfMIBViewBER() : NullBER() {
+    _type = TYPE_ENDOFMIBVIEW;
+}
+
 //////////////////
 // Opaque Float //
 //////////////////
 
+// Fixed length
 // 9F 78 04 XX XX XX XX
 OpaqueFloatBER::OpaqueFloatBER(const float value) :
         FloatBER(value) {

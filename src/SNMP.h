@@ -7,11 +7,14 @@ class UDP;
 
 namespace SNMP {
 
-#define PORT_SNMP 161
-#define PORT_SNMPTRAP 162
+class PORT {
+public:
+    static constexpr uint16_t SNMP = 161;
+    static constexpr uint16_t TRAP = 162;
+};
 
 class SNMP {
-    using MessageEvent = void (*)(const Message*, const IPAddress, const uint16_t);
+    using Event = void (*)(const Message*, const IPAddress, const uint16_t);
 
     friend class Agent;
     friend class Manager;
@@ -22,7 +25,7 @@ public:
 
     bool send(Message *message, const IPAddress ip, const uint16_t port);
 
-    void onMessage(MessageEvent event) {
+    void onMessage(Event event) {
         _onMessage = event;
     }
 
@@ -31,20 +34,20 @@ private:
 
     uint16_t _port;
     UDP *_udp = nullptr;
-    MessageEvent _onMessage = nullptr;
+    Event _onMessage = nullptr;
 };
 
 class Agent: public SNMP {
 public:
     Agent() :
-            SNMP(PORT_SNMP) {
+            SNMP(PORT::SNMP) {
     }
 };
 
 class Manager: public SNMP {
 public:
     Manager() :
-            SNMP(PORT_SNMPTRAP) {
+            SNMP(PORT::TRAP) {
     }
 };
 
