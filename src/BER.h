@@ -291,7 +291,11 @@ public:
 
     void setValue(const char *value) {
         // L, V
-        strncpy(_value, value, SIZE_OBJECTIDENTIFIER);
+        if (value == nullptr) {
+          _value[0] = 0;
+        } else {
+          strncpy(_value, value, SIZE_OBJECTIDENTIFIER);
+        }
         unsigned int index = 0;
         unsigned int subidentifier = 0;
         char *token = (char*) _value;
