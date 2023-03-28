@@ -94,7 +94,7 @@ class MIB {
             COUNT = UNKNOWN,
         };
 
-        static inline const char *COMUNITIES[] = {
+        static inline const char *COMMUNITIES[] = {
                 "public",
                 "private",
         };
@@ -103,7 +103,7 @@ class MIB {
         // Returns UNKNOWN if none
         static unsigned int match(const char *name) {
             for (unsigned int index = 0; index < COUNT; ++index) {
-                if (strcmp(COMUNITIES[index], name) == 0) {
+                if (strcmp(COMMUNITIES[index], name) == 0) {
                     return index;
                 }
             }
