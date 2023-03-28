@@ -112,7 +112,7 @@ class MIB {
     };
 
 public:
-    // Simple helper class to handle OID
+    // Simple helper class to handle OIDs
     class OID {
     public:
         enum {
@@ -123,7 +123,8 @@ public:
             SYSNAME,            // Read write
             SYSLOCATION,        // Read write
             LAST = SYSLOCATION, // Used for GETNEXTREQUEST
-            COUNT,
+            UNKNOWN,
+            COUNT = UNKNOWN,
         };
 
         static inline const char *NAMES[] = {
@@ -136,25 +137,25 @@ public:
         };
 
         // Returns index of OID equals to name
-        // Returns COUNT if none
+        // Returns UNKNOWN if none
         static unsigned int match(const char *name) {
             for (unsigned int index = 0; index < COUNT; ++index) {
                 if (strcmp(NAMES[index], name) == 0) {
                     return index;
                 }
             }
-            return COUNT;
+            return UNKNOWN;
         }
 
         // Returns index of first OID starting with name
-        // Returns COUNT if none
+        // Returns UNKNOWN if none
         static unsigned int start(const char *name) {
             for (unsigned int index = 0; index < COUNT; ++index) {
                 if (strncmp(NAMES[index], name, strlen(name)) == 0) {
                     return index;
                 }
             }
-            return COUNT;
+            return UNKNOWN;
         }
     };
 
@@ -264,7 +265,7 @@ private:
                 const char *name = varbind->getName();
                 unsigned int match = OID::match(name);
                 switch (match) {
-                case OID::COUNT:
+                case OID::UNKNOWN:
                     // OID is unknown
                     switch (message->getVersion()) {
                     case SNMP::VERSION1:
@@ -318,7 +319,7 @@ private:
                         break;
                     }
                     break;
-                case OID::COUNT:
+                case OID::UNKNOWN:
                     // OID is unknown
                     // Set error, status and index
                     response->setError(SNMP::GEN_ERR, index + 1);
@@ -366,7 +367,7 @@ private:
                     // Set error on failure
                     set(response, varbind, match, index, &MIB::setLocation);
                     break;
-                case OID::COUNT:
+                case OID::UNKNOWN:
                     // OID is unknown
                     // Set error, status and index
                     response->setError(SNMP::GEN_ERR, index + 1);
