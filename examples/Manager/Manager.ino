@@ -43,7 +43,7 @@ public:
         BATTERY_STATUS_DEPLETED
     };
 
-    // Simple helper class to handle OID
+    // Simple helper class to handle OIDs
     class OID {
     public:
         enum {
@@ -51,7 +51,8 @@ public:
             BATTERYSTATUS,
             ESTIMATEDMINUTESREMAINING,
             ESTIMATEDCHARGEREMAINING,
-            COUNT,
+            UNKNOWN,
+            COUNT = UNKNOWN,
         };
 
         static inline const char *NAMES[] = {
@@ -62,14 +63,14 @@ public:
         };
 
         // Returns index of OID equals to name
-        // Returns COUNT if none
+        // Returns UNKNOWN if none
        static unsigned int match(const char *name) {
             for (unsigned int index = 0; index < COUNT; ++index) {
                 if (strcmp(NAMES[index], name) == 0) {
                     return index;
                 }
             }
-            return COUNT;
+            return UNKNOWN;
         }
     };
 

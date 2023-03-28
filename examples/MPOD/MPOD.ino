@@ -28,7 +28,7 @@ using SNMP::VarBindList;
 // This class encapsulates the MPOD SNMP interface
 class MPOD {
 public:
-    // Simple helper class to handle OID
+    // Simple helper class to handle OIDs
     class OID {
     public:
         enum {
@@ -39,7 +39,8 @@ public:
             OUTPUTVOLTAGE,
             OUTPUTCURRENT,
             OUTPUTVOLTAGERISERATE,
-            COUNT,
+            UNKNOWN,
+            COUNT = UNKNOWN,
         };
 
         static inline const char *NAMES[] = {
@@ -53,14 +54,14 @@ public:
         };
 
         // Returns index of OID equals to name
-        // Returns COUNT if none
+        // Returns UNKNOWN if none
         static unsigned int match(const char *name) {
             for (unsigned int index = 0; index < COUNT; ++index) {
                 if (strcmp(NAMES[index], name) == 0) {
                     return index;
                 }
             }
-            return COUNT;
+            return UNKNOWN;
         }
     };
 
