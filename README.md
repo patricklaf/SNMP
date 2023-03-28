@@ -109,7 +109,7 @@ void loop() {
 }
 ```
 
-[Agent.ino](examples/Agent/Agent.ino) is a complete exemple of an SNMP agent implementation.
+[Agent.ino](examples/Agent/Agent.ino) is a complete example of an SNMP agent implementation.
 
 ### Manager
 
@@ -147,11 +147,11 @@ void loop() {
 }
 ```
 
-[Manager.ino](examples/Manager/Manager.ino) is a complete exemple of an SNMP manager implementation.
+[Manager.ino](examples/Manager/Manager.ino) is a complete example of an SNMP manager implementation.
 
-[MPOD.ino](examples/MPOD/MPOD.ino) is another exemple of an SNMP manager implementation with use of SETREQUEST.
+[MPOD.ino](examples/MPOD/MPOD.ino) is another example of an SNMP manager implementation with use of SETREQUEST.
 
-[Advanced.ino](examples/Advanced/Advanced.ino) is the more complex exemple. It shows how to write an SNMP agent able to handle GETREQUEST, GETNEXTREQUEST and SETREQUEST and generate TRAP, INFORMREQUEST and SNMPV2TRAP.
+[Advanced.ino](examples/Advanced/Advanced.ino) is the more complex example. It shows how to write an SNMP agent able to handle GETREQUEST, GETNEXTREQUEST and SETREQUEST and generate TRAP, INFORMREQUEST and SNMPV2TRAP.
 
 ## Limitations
 - Message size is limited to 512 bytes
