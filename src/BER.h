@@ -109,46 +109,46 @@ enum {
 
 class Type {
 public:
-    Type(unsigned int type);
+    Type(uint32_t type);
     ~Type() {
     }
 
-    const int encode(char *buffer);
-    const int decode(char *buffer);
+    const uint32_t encode(char *buffer);
+    const uint32_t decode(char *buffer);
 
-    unsigned int getType() {
+    uint32_t getType() {
         return _type;
     }
 
-    unsigned int getSize() {
+    uint32_t getSize() {
         return _size;
     }
 
 private:
-    unsigned int _type;
-    unsigned int _size = 0;
+    uint32_t _type;
+    uint32_t _size = 0;
 };
 
 class Length {
 public:
-    Length(unsigned int length);
+    Length(uint32_t length);
     ~Length() {
     }
 
-    const int encode(char *buffer);
-    const int decode(char *buffer);
+    const uint32_t encode(char *buffer);
+    const uint32_t decode(char *buffer);
 
-    unsigned int getLength() {
+    uint32_t getLength() {
         return _length;
     }
 
-    unsigned int getSize() {
+    uint32_t getSize() {
         return _size;
     }
 
 private:
-    unsigned int _length;
-    unsigned int _size = 0;
+    uint32_t _length;
+    uint32_t _size = 0;
 };
 
 class BER {
@@ -160,25 +160,25 @@ public:
     virtual ~BER() {
     }
 
-    virtual const int encode(char *buffer) = 0;
-    virtual const int decode(char *buffer) = 0;
+    virtual const uint32_t encode(char *buffer) = 0;
+    virtual const uint32_t decode(char *buffer) = 0;
 
     const uint8_t getType() {
         return _type;
     }
 
-    const unsigned int getLength() {
+    const uint32_t getLength() {
         return _length;
     }
 
-    virtual const int getSize(const bool force = false) {
+    virtual const uint32_t getSize(const bool force = false) {
         return _size;
     }
 
 protected:
     uint8_t _type = 0;
-    unsigned int _length = 0;
-    unsigned int _size = 0;
+    uint32_t _length = 0;
+    uint32_t _size = 0;
 };
 
 class BooleanBER: public BER {
@@ -187,8 +187,8 @@ public:
     virtual ~BooleanBER() {
     }
 
-    virtual const int encode(char *buffer);
-    virtual const int decode(char *buffer);
+    virtual const uint32_t encode(char *buffer);
+    virtual const uint32_t decode(char *buffer);
 
     bool getValue() const {
         return _value;
@@ -204,18 +204,18 @@ private:
 
 class IntegerBER: public BER {
 public:
-    IntegerBER(const int value);
+    IntegerBER(const uint32_t value);
     virtual ~IntegerBER() {
     }
 
-    virtual const int encode(char *buffer);
-    virtual const int decode(char *buffer);
+    virtual const uint32_t encode(char *buffer);
+    virtual const uint32_t decode(char *buffer);
 
-    const int getValue() const {
+    const uint32_t getValue() const {
         return _value;
     }
 
-    void setValue(const int value) {
+    void setValue(const uint32_t value) {
         _value = value;
         // L
         _length = 0;
@@ -229,24 +229,24 @@ public:
     }
 
 private:
-    int _value;
+    uint32_t _value;
 };
 
 class OctetStringBER: public BER {
 public:
     OctetStringBER(const char *value);
-    OctetStringBER(const char *value, const unsigned int length);
+    OctetStringBER(const char *value, const uint32_t length);
     virtual ~OctetStringBER() {
     }
 
-    virtual const int encode(char *buffer);
-    virtual const int decode(char *buffer);
+    virtual const uint32_t encode(char *buffer);
+    virtual const uint32_t decode(char *buffer);
 
     const char* getValue() const {
         return _value;
     }
 
-    void setValue(const char *value, const unsigned int length) {
+    void setValue(const char *value, const uint32_t length) {
         // L
         _length = length < SIZE_OCTETSTRING ? length : SIZE_OCTETSTRING;
         Length __length(_length);
@@ -255,9 +255,9 @@ public:
         _size = _length + __length.getSize() + 1;
     }
 
-    const bool getBit(const int index) const {
-        unsigned int byte = index / 8;
-        unsigned int bit = index % 8;
+    const bool getBit(const uint32_t index) const {
+        uint32_t byte = index / 8;
+        uint32_t bit = index % 8;
         return _value[byte] & (0x80 >> bit);
     }
 
@@ -272,8 +272,8 @@ public:
     virtual ~NullBER() {
     }
 
-    virtual const int encode(char *buffer);
-    virtual const int decode(char *buffer);
+    virtual const uint32_t encode(char *buffer);
+    virtual const uint32_t decode(char *buffer);
 };
 
 class ObjectIdentifierBER: public BER {
@@ -282,8 +282,8 @@ public:
     virtual ~ObjectIdentifierBER() {
     }
 
-    virtual const int encode(char *buffer);
-    virtual const int decode(char *buffer);
+    virtual const uint32_t encode(char *buffer);
+    virtual const uint32_t decode(char *buffer);
 
     const char* getValue() const {
         return _value;
@@ -294,8 +294,8 @@ public:
         if (value) {
             strncpy(_value, value, SIZE_OBJECTIDENTIFIER);
         }
-        unsigned int index = 0;
-        unsigned int subidentifier = 0;
+        uint32_t index = 0;
+        uint32_t subidentifier = 0;
         char *token = (char*) _value;
         while (token != NULL) {
             switch (index) {
@@ -331,13 +331,13 @@ public:
     SequenceBER(const uint8_t type);
     virtual ~SequenceBER();
 
-    virtual const int encode(char *buffer);
-    virtual const int decode(char *buffer);
+    virtual const uint32_t encode(char *buffer);
+    virtual const uint32_t decode(char *buffer);
 
-    virtual const int getSize(const bool force = false) {
+    virtual const uint32_t getSize(const bool force = false) {
         if (force) {
             _length = 0;
-            for (unsigned int index = 0; index < _count; ++index) {
+            for (uint32_t index = 0; index < _count; ++index) {
                 _length += _bers[index]->getSize(true);
             }
             _size = _length + 2;
@@ -362,18 +362,18 @@ public:
         }
     }
 
-    BER* operator [](const unsigned int index) {
+    BER* operator [](const uint32_t index) {
         return _bers[index];
     }
 
-    const unsigned int count() const {
+    const uint32_t count() const {
 //		return _bers.size();
         return _count;
     }
 
 private:
 //	std::vector<BER*> _bers;
-    unsigned int _count = 0;
+    uint32_t _count = 0;
     BER *_bers[SIZE_SEQUENCE];
 
     friend class VarBind;
@@ -411,7 +411,7 @@ public:
 
 class VarBindList: public SequenceBER {
 public:
-    VarBind* operator [](const unsigned int index) {
+    VarBind* operator [](const uint32_t index) {
         return static_cast<VarBind*>(_bers[index]);
     }
 };
@@ -422,8 +422,8 @@ public:
     virtual ~IPAddressBER() {
     }
 
-    virtual const int encode(char *buffer);
-    virtual const int decode(char *buffer);
+    virtual const uint32_t encode(char *buffer);
+    virtual const uint32_t decode(char *buffer);
 
     const uint8_t* getValue() {
         return _value;
@@ -435,21 +435,21 @@ private:
 
 class Counter32BER: public IntegerBER {
 public:
-    Counter32BER(const unsigned int value);
+    Counter32BER(const uint32_t value);
     virtual ~Counter32BER() {
     }
 };
 
 class Gauge32BER: public IntegerBER {
 public:
-    Gauge32BER(const unsigned int value);
+    Gauge32BER(const uint32_t value);
     virtual ~Gauge32BER() {
     }
 };
 
 class TimeTicksBER: public IntegerBER {
 public:
-    TimeTicksBER(const unsigned int value);
+    TimeTicksBER(const uint32_t value);
     virtual ~TimeTicksBER() {
     }
 };
@@ -459,10 +459,10 @@ public:
     OpaqueBER(BER *ber);
     virtual ~OpaqueBER();
 
-    virtual const int encode(char *buffer);
-    virtual const int decode(char *buffer);
+    virtual const uint32_t encode(char *buffer);
+    virtual const uint32_t decode(char *buffer);
 
-    virtual const int getSize(const bool force = false) {
+    virtual const uint32_t getSize(const bool force = false) {
         if (force && _ber) {
             _length = _ber->getSize(true);
             _size = _length + 2;
@@ -484,8 +484,8 @@ public:
     virtual ~FloatBER() {
     }
 
-    virtual const int encode(char *buffer);
-    virtual const int decode(char *buffer);
+    virtual const uint32_t encode(char *buffer);
+    virtual const uint32_t decode(char *buffer);
 
     const float getValue() const {
         return _value;
