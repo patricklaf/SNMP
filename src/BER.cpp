@@ -137,7 +137,7 @@ const uint32_t BooleanBER::decode(char *buffer) {
 
 // Variable length
 // 02 XX YY YY
-IntegerBER::IntegerBER(const uint32_t value) :
+IntegerBER::IntegerBER(const int32_t value) :
         BER(TYPE_INTEGER) {
     setValue(value);
 }

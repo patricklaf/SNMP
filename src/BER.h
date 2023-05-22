@@ -204,18 +204,18 @@ private:
 
 class IntegerBER: public BER {
 public:
-    IntegerBER(const uint32_t value);
+    IntegerBER(const int32_t value);
     virtual ~IntegerBER() {
     }
 
     virtual const uint32_t encode(char *buffer);
     virtual const uint32_t decode(char *buffer);
 
-    const uint32_t getValue() const {
+    const int32_t getValue() const {
         return _value;
     }
 
-    void setValue(const uint32_t value) {
+    void setValue(const int32_t value) {
         _value = value;
         // L
         _length = 0;
@@ -229,7 +229,7 @@ public:
     }
 
 private:
-    uint32_t _value;
+    int32_t _value;
 };
 
 class OctetStringBER: public BER {
