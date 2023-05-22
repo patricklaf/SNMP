@@ -18,7 +18,14 @@
  Created 19/03/2022 by Patrick Lafarguette
  */
 
+#if ARDUINO_ARCH_AVR
+#include <Ethernet.h> // Ethernet support. Replace if needed.
+#endif
+
+#if ARDUINO_ARCH_STM32
 #include <STM32Ethernet.h> // Ethernet support. Replace if needed.
+#endif
+
 #include <SNMP.h>
 
 EthernetUDP udp;
@@ -39,7 +46,7 @@ SNMP::Agent snmp;
 // .1.3.6.1.2.1.1.5.0 = STRING: localhost.localdomain
 
 const char *SYSNAME_OID = "1.3.6.1.2.1.1.5.0";
-const char *SYSNAME_VALUE = "Nucleo F767ZI";
+const char *SYSNAME_VALUE = "Nucleo F767ZI"; // Name of the board. Replace if needed.
 
 // Use some SNMP classes
 using SNMP::OctetStringBER;
@@ -71,16 +78,27 @@ void onMessage(const SNMP::Message *message, const IPAddress remote, const uint1
             // Send the response to remote IP and port
             snmp.send(response, remote, port);
             // Avoid memory leak
-            delete response; 
+            delete response;
        }
     }
 }
 
 void setup() {
+	// Serial
+#if ARDUINO_ARCH_AVR
+    Serial.begin(9600);
+#endif
+#if ARDUINO_ARCH_STM32
     Serial.begin(115200);
+#endif
     // Ethernet
-    Ethernet.begin(IPAddress(192, 168, 2, 2), IPAddress(255, 255, 255, 0),
-            IPAddress(192, 168, 2, 1), IPAddress(192, 168, 2, 1));
+#if ARDUINO_ARCH_AVR
+	byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
+	Ethernet.begin(mac, IPAddress(192, 168, 2, 2));
+#endif
+#if ARDUINO_ARCH_STM32
+    Ethernet.begin(IPAddress(192, 168, 2, 2));
+#endif
     // SNMP
     snmp.begin(&udp);
     snmp.onMessage(onMessage);
