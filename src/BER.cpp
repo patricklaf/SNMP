@@ -166,7 +166,7 @@ const uint32_t IntegerBER::decode(char *buffer) {
         _value = 0;
         for (uint32_t index = 0; index < _length; ++index) {
             _value <<= 8;
-            _value |= *pointer++;
+            _value |= static_cast<uint8_t>(*pointer++);
         }
         _size = pointer - buffer;
     }
