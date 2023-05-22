@@ -31,7 +31,7 @@ public:
     VarBind* add(const char *OID, BER *value = nullptr);
 
     unsigned int build(char *buffer);
-    bool parse(char *buffer, unsigned int length);
+    bool parse(char *buffer, uint32_t length);
 
     // Getters and setters
     uint8_t getVersion() const {

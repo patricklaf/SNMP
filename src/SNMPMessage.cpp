@@ -47,7 +47,7 @@ unsigned int Message::build(char *buffer) {
     return _message->encode(buffer);
 }
 
-bool Message::parse(char *buffer, unsigned int length) {
+bool Message::parse(char *buffer, uint32_t length) {
     if (_message->decode(buffer)) {
         _version = static_cast<IntegerBER*>((*_message)[0])->getValue();
         _community = static_cast<OctetStringBER*>((*_message)[1])->getValue();
