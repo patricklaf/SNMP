@@ -34,6 +34,13 @@ The library supports:
   - Float
   - OpaqueFloat
  
+## Compatibility
+
+The library is developped and tested on several boards and architectures:
+
+- Arduino Mega 2560 (AVR).
+- NUCLEO-F429ZI and NUCLEO-F767ZI (STM32).
+
 ## Usage
 
 There is only one header to include to use the library.

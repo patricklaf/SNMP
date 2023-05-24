@@ -17,7 +17,7 @@ bool SNMP::begin(UDP *udp) {
 }
 
 bool SNMP::loop() {
-    char buffer[512];
+    unsigned char buffer[512];
     if (_udp) {
         if (_udp->parsePacket()) {
             int length = _udp->available();
@@ -42,7 +42,7 @@ bool SNMP::send(Message *message, const IPAddress ip, const uint16_t port) {
     // 3 - build buffer
     // 4 - send
     // 5 - free buffer
-    char buffer[512] = { 0 };
+    unsigned char buffer[512] = { 0 };
     if (unsigned int size = message->build(buffer)) {
         _udp->beginPacket(ip, port);
         _udp->write((unsigned char*) buffer, size);

@@ -113,8 +113,8 @@ public:
     ~Type() {
     }
 
-    const uint32_t encode(char *buffer);
-    const uint32_t decode(char *buffer);
+    const uint32_t encode(unsigned char *buffer);
+    const uint32_t decode(unsigned char *buffer);
 
     uint32_t getType() {
         return _type;
@@ -135,8 +135,8 @@ public:
     ~Length() {
     }
 
-    const uint32_t encode(char *buffer);
-    const uint32_t decode(char *buffer);
+    const uint32_t encode(unsigned char *buffer);
+    const uint32_t decode(unsigned char *buffer);
 
     uint32_t getLength() {
         return _length;
@@ -160,8 +160,8 @@ public:
     virtual ~BER() {
     }
 
-    virtual const uint32_t encode(char *buffer) = 0;
-    virtual const uint32_t decode(char *buffer) = 0;
+    virtual const uint32_t encode(unsigned char *buffer) = 0;
+    virtual const uint32_t decode(unsigned char *buffer) = 0;
 
     const uint8_t getType() {
         return _type;
@@ -187,8 +187,8 @@ public:
     virtual ~BooleanBER() {
     }
 
-    virtual const uint32_t encode(char *buffer);
-    virtual const uint32_t decode(char *buffer);
+    virtual const uint32_t encode(unsigned char *buffer);
+    virtual const uint32_t decode(unsigned char *buffer);
 
     bool getValue() const {
         return _value;
@@ -208,8 +208,8 @@ public:
     virtual ~IntegerBER() {
     }
 
-    virtual const uint32_t encode(char *buffer);
-    virtual const uint32_t decode(char *buffer);
+    virtual const uint32_t encode(unsigned char *buffer);
+    virtual const uint32_t decode(unsigned char *buffer);
 
     const int32_t getValue() const {
         return _value;
@@ -239,8 +239,8 @@ public:
     virtual ~OctetStringBER() {
     }
 
-    virtual const uint32_t encode(char *buffer);
-    virtual const uint32_t decode(char *buffer);
+    virtual const uint32_t encode(unsigned char *buffer);
+    virtual const uint32_t decode(unsigned char *buffer);
 
     const char* getValue() const {
         return _value;
@@ -272,8 +272,8 @@ public:
     virtual ~NullBER() {
     }
 
-    virtual const uint32_t encode(char *buffer);
-    virtual const uint32_t decode(char *buffer);
+    virtual const uint32_t encode(unsigned char *buffer);
+    virtual const uint32_t decode(unsigned char *buffer);
 };
 
 class ObjectIdentifierBER: public BER {
@@ -282,8 +282,8 @@ public:
     virtual ~ObjectIdentifierBER() {
     }
 
-    virtual const uint32_t encode(char *buffer);
-    virtual const uint32_t decode(char *buffer);
+    virtual const uint32_t encode(unsigned char *buffer);
+    virtual const uint32_t decode(unsigned char *buffer);
 
     const char* getValue() const {
         return _value;
@@ -331,8 +331,8 @@ public:
     SequenceBER(const uint8_t type);
     virtual ~SequenceBER();
 
-    virtual const uint32_t encode(char *buffer);
-    virtual const uint32_t decode(char *buffer);
+    virtual const uint32_t encode(unsigned char *buffer);
+    virtual const uint32_t decode(unsigned char *buffer);
 
     virtual const uint32_t getSize(const bool force = false) {
         if (force) {
@@ -422,8 +422,8 @@ public:
     virtual ~IPAddressBER() {
     }
 
-    virtual const uint32_t encode(char *buffer);
-    virtual const uint32_t decode(char *buffer);
+    virtual const uint32_t encode(unsigned char *buffer);
+    virtual const uint32_t decode(unsigned char *buffer);
 
     const uint8_t* getValue() {
         return _value;
@@ -459,8 +459,8 @@ public:
     OpaqueBER(BER *ber);
     virtual ~OpaqueBER();
 
-    virtual const uint32_t encode(char *buffer);
-    virtual const uint32_t decode(char *buffer);
+    virtual const uint32_t encode(unsigned char *buffer);
+    virtual const uint32_t decode(unsigned char *buffer);
 
     virtual const uint32_t getSize(const bool force = false) {
         if (force && _ber) {
@@ -484,8 +484,8 @@ public:
     virtual ~FloatBER() {
     }
 
-    virtual const uint32_t encode(char *buffer);
-    virtual const uint32_t decode(char *buffer);
+    virtual const uint32_t encode(unsigned char *buffer);
+    virtual const uint32_t decode(unsigned char *buffer);
 
     const float getValue() const {
         return _value;

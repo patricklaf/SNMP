@@ -30,8 +30,8 @@ public:
 
     VarBind* add(const char *OID, BER *value = nullptr);
 
-    unsigned int build(char *buffer);
-    bool parse(char *buffer, uint32_t length);
+    unsigned int build(unsigned char *buffer);
+    bool parse(unsigned char *buffer, uint32_t length);
 
     // Getters and setters
     uint8_t getVersion() const {
@@ -46,11 +46,11 @@ public:
         return _type;
     }
 
-    uint32_t getRequestID() const {
+    int32_t getRequestID() const {
         return _requestID;
     }
 
-    void setRequestID(uint32_t requestId) {
+    void setRequestID(int32_t requestId) {
         _requestID = requestId;
     }
 
@@ -149,7 +149,7 @@ private:
     SequenceBER *_message;
     VarBindList *_varBindList;
     // Generic
-    uint32_t _requestID;
+    int32_t _requestID;
     uint8_t _errorStatus = NO_ERROR;
     uint8_t _errorIndex = 0;
     // Trap

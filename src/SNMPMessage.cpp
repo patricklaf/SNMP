@@ -20,7 +20,7 @@ VarBind* Message::add(const char *oid, BER *value) {
     return static_cast<VarBind*>(_varBindList->add(new VarBind(oid, value)));
 }
 
-unsigned int Message::build(char *buffer) {
+unsigned int Message::build(unsigned char *buffer) {
     SequenceBER *data = new SequenceBER(_type);
     if (_type == TYPE_TRAP) {
         data->add(new ObjectIdentifierBER(_enterprise));
@@ -47,7 +47,7 @@ unsigned int Message::build(char *buffer) {
     return _message->encode(buffer);
 }
 
-bool Message::parse(char *buffer, uint32_t length) {
+bool Message::parse(unsigned char *buffer, uint32_t length) {
     if (_message->decode(buffer)) {
         _version = static_cast<IntegerBER*>((*_message)[0])->getValue();
         _community = static_cast<OctetStringBER*>((*_message)[1])->getValue();

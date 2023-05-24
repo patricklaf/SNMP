@@ -18,8 +18,8 @@ Type::Type(uint32_t type) {
     _type = type;
 }
 
-const uint32_t Type::encode(char *buffer) {
-    char *pointer = buffer;
+const uint32_t Type::encode(unsigned char *buffer) {
+	unsigned char *pointer = buffer;
     if (_type > 30) {
         pointer += _size;
         uint32_t value = _type;
@@ -34,8 +34,8 @@ const uint32_t Type::encode(char *buffer) {
     return _size;
 }
 
-const uint32_t Type::decode(char *buffer) {
-    char *pointer = buffer;
+const uint32_t Type::decode(unsigned char *buffer) {
+	unsigned char *pointer = buffer;
     _type = *pointer++;
     if (_type & 0x1F > 30) {
         _type = 0;
@@ -65,8 +65,8 @@ Length::Length(uint32_t length) {
     }
 }
 
-const uint32_t Length::encode(char *buffer) {
-    char *pointer = buffer;
+const uint32_t Length::encode(unsigned char *buffer) {
+	unsigned char *pointer = buffer;
     uint32_t value = _length;
     if (_length > 127) {
         *pointer = 0x80 | _size;
@@ -81,8 +81,8 @@ const uint32_t Length::encode(char *buffer) {
     return _size;
 }
 
-const uint32_t Length::decode(char *buffer) {
-    char *pointer = buffer;
+const uint32_t Length::decode(unsigned char *buffer) {
+	unsigned char *pointer = buffer;
     _length = *pointer++;
     if (_length > 127) {
         _size = _length & 0x7F;
@@ -109,9 +109,8 @@ BooleanBER::BooleanBER(const bool value) :
     _size = 3;
 }
 
-const uint32_t BooleanBER::encode(char *buffer) {
-    uint32_t value = _value;
-    char *pointer = buffer;
+const uint32_t BooleanBER::encode(unsigned char *buffer) {
+    unsigned char *pointer = buffer;
     // T, L, V
     *pointer++ = _type;
     *pointer++ = _length;
@@ -119,8 +118,8 @@ const uint32_t BooleanBER::encode(char *buffer) {
     return _size;
 }
 
-const uint32_t BooleanBER::decode(char *buffer) {
-    char *pointer = buffer;
+const uint32_t BooleanBER::decode(unsigned char *buffer) {
+	unsigned char *pointer = buffer;
     // T, L, V
     if (*pointer++ == TYPE_BOOLEAN) {
         if (*pointer++ == _length) {
@@ -142,9 +141,9 @@ IntegerBER::IntegerBER(const int32_t value) :
     setValue(value);
 }
 
-const uint32_t IntegerBER::encode(char *buffer) {
-    uint32_t value = _value;
-    char *pointer = buffer;
+const uint32_t IntegerBER::encode(unsigned char *buffer) {
+    int32_t value = _value;
+    unsigned char *pointer = buffer;
     // T, L
     *pointer++ = _type;
     *pointer = _length;
@@ -158,8 +157,8 @@ const uint32_t IntegerBER::encode(char *buffer) {
     return _size;
 }
 
-const uint32_t IntegerBER::decode(char *buffer) {
-    char *pointer = buffer;
+const uint32_t IntegerBER::decode(unsigned char *buffer) {
+	unsigned char *pointer = buffer;
     // T, L, V
     if (*pointer++ == _type) {
         _length = *pointer++;
@@ -187,8 +186,8 @@ OctetStringBER::OctetStringBER(const char *value, const uint32_t length) :
     setValue(value, length);
 }
 
-const uint32_t OctetStringBER::encode(char *buffer) {
-    char *pointer = buffer;
+const uint32_t OctetStringBER::encode(unsigned char *buffer) {
+	unsigned char *pointer = buffer;
     // T
     *pointer++ = _type;
     // L
@@ -199,8 +198,8 @@ const uint32_t OctetStringBER::encode(char *buffer) {
     return _size;
 }
 
-const uint32_t OctetStringBER::decode(char *buffer) {
-    char *pointer = buffer;
+const uint32_t OctetStringBER::decode(unsigned char *buffer) {
+	unsigned char *pointer = buffer;
     // T
     if (*pointer++ == TYPE_OCTETSTRING) {
         // L
@@ -237,16 +236,16 @@ NullBER::NullBER(const uint8_t type) :
     _size = 2;
 }
 
-const uint32_t NullBER::encode(char *buffer) {
-    char *pointer = buffer;
+const uint32_t NullBER::encode(unsigned char *buffer) {
+	unsigned char *pointer = buffer;
     // T, L, no value
     *pointer++ = _type;
     *pointer++ = _length;
     return _size;
 }
 
-const uint32_t NullBER::decode(char *buffer) {
-    char *pointer = buffer;
+const uint32_t NullBER::decode(unsigned char *buffer) {
+	unsigned char *pointer = buffer;
     // T, L, no value
     if (*pointer++ == _type) {
         if (*pointer++ == _length) {
@@ -266,10 +265,10 @@ ObjectIdentifierBER::ObjectIdentifierBER(const char *value) :
     setValue(value);
 }
 
-const uint32_t ObjectIdentifierBER::encode(char *buffer) {
+const uint32_t ObjectIdentifierBER::encode(unsigned char *buffer) {
     uint32_t index = 0;
     uint8_t subidentifier = 0;
-    char *pointer = buffer;
+    unsigned char *pointer = buffer;
     // T, L
     *pointer++ = _type;
     *pointer++ = _length;
@@ -309,12 +308,12 @@ const uint32_t ObjectIdentifierBER::encode(char *buffer) {
     return _size;
 }
 
-const uint32_t ObjectIdentifierBER::decode(char *buffer) {
+const uint32_t ObjectIdentifierBER::decode(unsigned char *buffer) {
     uint32_t index = 0;
     uint8_t subidentifier = 0;
     char oid[SIZE_OBJECTIDENTIFIER];
-    char *pointer = buffer;
-    char *end = NULL;
+    unsigned char *pointer = buffer;
+    unsigned char *end = NULL;
     // T
     if (*pointer++ == _type) {
         // L
@@ -368,8 +367,8 @@ SequenceBER::~SequenceBER() {
     memset(_bers, 0, SIZE_SEQUENCE);
 }
 
-const uint32_t SequenceBER::encode(char *buffer) {
-    char *pointer = buffer;
+const uint32_t SequenceBER::encode(unsigned char *buffer) {
+	unsigned char *pointer = buffer;
     // T
     *pointer++ = _type;
     // L
@@ -382,8 +381,8 @@ const uint32_t SequenceBER::encode(char *buffer) {
     return _size;
 }
 
-const uint32_t SequenceBER::decode(char *buffer) {
-	char *pointer = buffer;
+const uint32_t SequenceBER::decode(unsigned char *buffer) {
+	unsigned char *pointer = buffer;
 	// T
 	uint8_t type = *pointer++;
 	if (type == _type) {
@@ -391,7 +390,7 @@ const uint32_t SequenceBER::decode(char *buffer) {
         Length __length(0);
         pointer += __length.decode(pointer);
         _length = __length.getLength();
-        char *end = pointer + _length;
+        unsigned char *end = pointer + _length;
 		if (_length) {
             do {
                 uint8_t type = *pointer;
@@ -477,8 +476,8 @@ IPAddressBER::IPAddressBER(IPAddress value) :
     _size = 6;
 }
 
-const uint32_t IPAddressBER::encode(char *buffer) {
-    char *pointer = buffer;
+const uint32_t IPAddressBER::encode(unsigned char *buffer) {
+	unsigned char *pointer = buffer;
     // T, L
     *pointer++ = _type;
     *pointer++ = _length;
@@ -489,8 +488,8 @@ const uint32_t IPAddressBER::encode(char *buffer) {
     return _size;
 }
 
-const uint32_t IPAddressBER::decode(char *buffer) {
-    char *pointer = buffer;
+const uint32_t IPAddressBER::decode(unsigned char *buffer) {
+	unsigned char *pointer = buffer;
     // T
     if (*pointer++ == _type) {
         // L
@@ -552,8 +551,8 @@ OpaqueBER::~OpaqueBER() {
     delete _ber;
 }
 
-const uint32_t OpaqueBER::encode(char *buffer) {
-    char *pointer = buffer;
+const uint32_t OpaqueBER::encode(unsigned char *buffer) {
+	unsigned char *pointer = buffer;
     // T, L, V
     *pointer++ = _type;
     *pointer++ = _length;
@@ -561,14 +560,14 @@ const uint32_t OpaqueBER::encode(char *buffer) {
     return _size;
 }
 
-const uint32_t OpaqueBER::decode(char *buffer) {
-    char *pointer = buffer;
+const uint32_t OpaqueBER::decode(unsigned char *buffer) {
+	unsigned char *pointer = buffer;
     // T
     if (*pointer++ == TYPE_OPAQUE) {
         // L
         // TODO decode length
         _length = *pointer++;
-        char *end = pointer + _length;
+        unsigned char *end = pointer + _length;
         if (_length) {
             do {
                 Type __type(0);
@@ -618,8 +617,8 @@ FloatBER::FloatBER(const float value) :
     _size = 6;
 }
 
-const uint32_t FloatBER::encode(char *buffer) {
-    char *pointer = buffer;
+const uint32_t FloatBER::encode(unsigned char *buffer) {
+	unsigned char *pointer = buffer;
     // T
     Type __type(_type);
     pointer += __type.encode(pointer);
@@ -634,8 +633,8 @@ const uint32_t FloatBER::encode(char *buffer) {
     return _size;
 }
 
-const uint32_t FloatBER::decode(char *buffer) {
-    char *pointer = buffer;
+const uint32_t FloatBER::decode(unsigned char *buffer) {
+	unsigned char *pointer = buffer;
     // T
     Type __type(0);
     pointer += __type.decode(pointer);
