@@ -307,7 +307,7 @@ public:
                 _length++;
                 break;
             default: {
-                subidentifier = atoi(++token);
+                subidentifier = atol(++token);
                 do {
                     subidentifier >>= 7;
                     _length++;
