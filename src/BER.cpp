@@ -308,6 +308,7 @@ const uint32_t ObjectIdentifierBER::encode(unsigned char *buffer) {
     return _size;
 }
 
+
 const uint32_t ObjectIdentifierBER::decode(unsigned char *buffer) {
     uint32_t index = 0;
     uint32_t subidentifier = 0;
@@ -330,7 +331,7 @@ const uint32_t ObjectIdentifierBER::decode(unsigned char *buffer) {
                 sprintf(oid + strlen(oid), ".%lu", subidentifier);
             } else {
                 subidentifier = *pointer++;
-                sprintf(oid, "%d.%d", subidentifier / 40, subidentifier % 40);
+                sprintf(oid, "%ld.%ld", subidentifier / 40, subidentifier % 40);
             }
         } while (pointer < end);
         strncpy(_value, oid, SIZE_OBJECTIDENTIFIER);
