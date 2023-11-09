@@ -267,7 +267,7 @@ ObjectIdentifierBER::ObjectIdentifierBER(const char *value) :
 
 const uint32_t ObjectIdentifierBER::encode(unsigned char *buffer) {
     uint32_t index = 0;
-    uint8_t subidentifier = 0;
+    uint32_t subidentifier = 0;
     unsigned char *pointer = buffer;
     // T, L
     *pointer++ = _type;
@@ -285,7 +285,7 @@ const uint32_t ObjectIdentifierBER::encode(unsigned char *buffer) {
             break;
             ;
         default: {
-            subidentifier = atoi(++token);
+            subidentifier = atol(++token);
             uint32_t value = subidentifier;
             uint32_t length = 0;
             do {
@@ -308,9 +308,10 @@ const uint32_t ObjectIdentifierBER::encode(unsigned char *buffer) {
     return _size;
 }
 
+
 const uint32_t ObjectIdentifierBER::decode(unsigned char *buffer) {
     uint32_t index = 0;
-    uint8_t subidentifier = 0;
+    uint32_t subidentifier = 0;
     char oid[SIZE_OBJECTIDENTIFIER];
     unsigned char *pointer = buffer;
     unsigned char *end = NULL;
@@ -327,10 +328,10 @@ const uint32_t ObjectIdentifierBER::decode(unsigned char *buffer) {
                     subidentifier <<= 7;
                     subidentifier += *pointer & 0x7F;
                 } while (*pointer++ & 0x80);
-                sprintf(oid + strlen(oid), ".%d", subidentifier);
+                sprintf(oid + strlen(oid), ".%lu", subidentifier);
             } else {
                 subidentifier = *pointer++;
-                sprintf(oid, "%d.%d", subidentifier / 40, subidentifier % 40);
+                sprintf(oid, "%ld.%ld", subidentifier / 40, subidentifier % 40);
             }
         } while (pointer < end);
         strncpy(_value, oid, SIZE_OBJECTIDENTIFIER);
