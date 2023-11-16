@@ -162,7 +162,13 @@ const uint32_t IntegerBER::decode(unsigned char *buffer) {
     // T, L, V
     if (*pointer++ == _type) {
         _length = *pointer++;
-        _value = 0;
+        if (*pointer & 0x80) {
+        	// Negative
+        	_value = 0xFFFFFFFF;
+        } else {
+        	// Positive
+        	_value = 0;
+        }
         for (uint32_t index = 0; index < _length; ++index) {
             _value <<= 8;
             _value |= static_cast<uint8_t>(*pointer++);
