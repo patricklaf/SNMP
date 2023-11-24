@@ -23,3 +23,5 @@ jobs:
             - examples/
           libraries: |
             - name: Ethernet
+          cli-compile-flags: |
+            - --build-property "build.extra_flags=\"-UARDUINO_ARCH_STM32\""
