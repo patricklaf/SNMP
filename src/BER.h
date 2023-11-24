@@ -216,16 +216,30 @@ public:
     }
 
     void setValue(const int32_t value) {
-        _value = value;
-        // L
-        _length = 0;
-        do {
-            _value >>= 8;
-            _length++;
-        } while (_value);
-        // V
-        _value = value;
-        _size = _length + 2;
+		_value = value;
+    	if (_value & 0x80000000) {
+    		// Negative
+    		// L
+    		for (_length = 4; _length > 1; --_length) {
+    			uint16_t word = _value >> (8 * (_length - 2));
+    			if ((word & 0xFF80) != 0xFF80) {
+					break;
+    			}
+    		}
+    	} else {
+    		// Positive
+			// L
+			_length = 0;
+			bool carry = false;
+			do {
+				carry = _value & 0x80;
+				_value >>= 8;
+				_length++;
+			} while (_value | carry);
+    	}
+		// V
+		_value = value;
+		_size = _length + 2;
     }
 
 private:
