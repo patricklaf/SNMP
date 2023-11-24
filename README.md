@@ -1,7 +1,6 @@
 # SNMP
 
 [![GitHub release](https://img.shields.io/github/v/release/patricklaf/SNMP)](https://github.com/patricklaf/SNMP/releases/latest)
-![GitHub All Releases](https://img.shields.io/github/downloads/patricklaf/SNMP/total.svg)
 
 Simple Network Management Protocol library to write agent or manager for Arduino boards.
 
@@ -36,8 +35,9 @@ The library supports:
  
 ## Compatibility
 
-The library is developped and tested on several boards and architectures:
+The library is developed and tested on several boards and architectures:
 
+- Adafruit Huzzah32 (ESP32).
 - Arduino Mega 2560 (AVR).
 - NUCLEO-F429ZI and NUCLEO-F767ZI (STM32).
 
@@ -163,13 +163,13 @@ void loop() {
 ## Limitations
 - Message size is limited to 512 bytes
 - SequenceBER is limited to 16 objects, so 8 variables (OID and value)
-- OctetString is limited to 128 octets
+- OctetString is limited to 128 bytes
 - ObjectIdentifier is limited to 63 chars null-terminated string
 
 These limitations should be removed in future releases.
 
 ## TODO
-- Use dynamic allocation for buffers (Message, OctetString and ObjectIdntifier)
+- Use dynamic allocation for buffers (Message, OctetString and ObjectIdentifier)
 - Use vector for dynamic arrays (SequenceBER)
 
 ## Acknowledgements
