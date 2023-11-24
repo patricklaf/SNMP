@@ -19,7 +19,7 @@ Type::Type(uint32_t type) {
 }
 
 const uint32_t Type::encode(unsigned char *buffer) {
-	unsigned char *pointer = buffer;
+    unsigned char *pointer = buffer;
     if (_type > 30) {
         pointer += _size;
         uint32_t value = _type;
@@ -35,7 +35,7 @@ const uint32_t Type::encode(unsigned char *buffer) {
 }
 
 const uint32_t Type::decode(unsigned char *buffer) {
-	unsigned char *pointer = buffer;
+    unsigned char *pointer = buffer;
     _type = *pointer++;
     if (_type & 0x1F > 30) {
         _type = 0;
@@ -66,7 +66,7 @@ Length::Length(uint32_t length) {
 }
 
 const uint32_t Length::encode(unsigned char *buffer) {
-	unsigned char *pointer = buffer;
+    unsigned char *pointer = buffer;
     uint32_t value = _length;
     if (_length > 127) {
         *pointer = 0x80 | _size;
@@ -82,7 +82,7 @@ const uint32_t Length::encode(unsigned char *buffer) {
 }
 
 const uint32_t Length::decode(unsigned char *buffer) {
-	unsigned char *pointer = buffer;
+    unsigned char *pointer = buffer;
     _length = *pointer++;
     if (_length > 127) {
         _size = _length & 0x7F;
@@ -119,7 +119,7 @@ const uint32_t BooleanBER::encode(unsigned char *buffer) {
 }
 
 const uint32_t BooleanBER::decode(unsigned char *buffer) {
-	unsigned char *pointer = buffer;
+    unsigned char *pointer = buffer;
     // T, L, V
     if (*pointer++ == TYPE_BOOLEAN) {
         if (*pointer++ == _length) {
@@ -158,16 +158,16 @@ const uint32_t IntegerBER::encode(unsigned char *buffer) {
 }
 
 const uint32_t IntegerBER::decode(unsigned char *buffer) {
-	unsigned char *pointer = buffer;
+    unsigned char *pointer = buffer;
     // T, L, V
     if (*pointer++ == _type) {
         _length = *pointer++;
         if (*pointer & 0x80) {
-        	// Negative
-        	_value = 0xFFFFFFFF;
+            // Negative
+            _value = 0xFFFFFFFF;
         } else {
-        	// Positive
-        	_value = 0;
+            // Positive
+            _value = 0;
         }
         for (uint32_t index = 0; index < _length; ++index) {
             _value <<= 8;
@@ -193,7 +193,7 @@ OctetStringBER::OctetStringBER(const char *value, const uint32_t length) :
 }
 
 const uint32_t OctetStringBER::encode(unsigned char *buffer) {
-	unsigned char *pointer = buffer;
+    unsigned char *pointer = buffer;
     // T
     *pointer++ = _type;
     // L
@@ -205,7 +205,7 @@ const uint32_t OctetStringBER::encode(unsigned char *buffer) {
 }
 
 const uint32_t OctetStringBER::decode(unsigned char *buffer) {
-	unsigned char *pointer = buffer;
+    unsigned char *pointer = buffer;
     // T
     if (*pointer++ == TYPE_OCTETSTRING) {
         // L
@@ -243,7 +243,7 @@ NullBER::NullBER(const uint8_t type) :
 }
 
 const uint32_t NullBER::encode(unsigned char *buffer) {
-	unsigned char *pointer = buffer;
+    unsigned char *pointer = buffer;
     // T, L, no value
     *pointer++ = _type;
     *pointer++ = _length;
@@ -251,7 +251,7 @@ const uint32_t NullBER::encode(unsigned char *buffer) {
 }
 
 const uint32_t NullBER::decode(unsigned char *buffer) {
-	unsigned char *pointer = buffer;
+    unsigned char *pointer = buffer;
     // T, L, no value
     if (*pointer++ == _type) {
         if (*pointer++ == _length) {
@@ -363,10 +363,10 @@ SequenceBER::SequenceBER(const uint8_t type) :
 }
 
 SequenceBER::~SequenceBER() {
-//	for (auto ber : _bers) {
-//		delete ber;
-//	}
-//	_bers.clear();
+//    for (auto ber : _bers) {
+//        delete ber;
+//    }
+//    _bers.clear();
     for (uint32_t index = 0; index < _count; ++index) {
         delete _bers[index];
     }
@@ -375,7 +375,7 @@ SequenceBER::~SequenceBER() {
 }
 
 const uint32_t SequenceBER::encode(unsigned char *buffer) {
-	unsigned char *pointer = buffer;
+    unsigned char *pointer = buffer;
     // T
     *pointer++ = _type;
     // L
@@ -389,16 +389,16 @@ const uint32_t SequenceBER::encode(unsigned char *buffer) {
 }
 
 const uint32_t SequenceBER::decode(unsigned char *buffer) {
-	unsigned char *pointer = buffer;
-	// T
-	uint8_t type = *pointer++;
-	if (type == _type) {
+    unsigned char *pointer = buffer;
+    // T
+    uint8_t type = *pointer++;
+    if (type == _type) {
         // L
         Length __length(0);
         pointer += __length.decode(pointer);
         _length = __length.getLength();
         unsigned char *end = pointer + _length;
-		if (_length) {
+        if (_length) {
             do {
                 uint8_t type = *pointer;
                 BER *ber = nullptr;
@@ -457,14 +457,14 @@ const uint32_t SequenceBER::decode(unsigned char *buffer) {
                     while (1) {
                     }
                 }
-			} while (pointer < end);
+            } while (pointer < end);
         }
         _size = pointer - buffer;
     } else {
-		Serial.print("[ERROR] sequence BER type 0x");
-		Serial.println(type, HEX);
-		while (1) {
-		}
+        Serial.print("[ERROR] sequence BER type 0x");
+        Serial.println(type, HEX);
+        while (1) {
+        }
     }
     return _size;
 }
@@ -484,7 +484,7 @@ IPAddressBER::IPAddressBER(IPAddress value) :
 }
 
 const uint32_t IPAddressBER::encode(unsigned char *buffer) {
-	unsigned char *pointer = buffer;
+    unsigned char *pointer = buffer;
     // T, L
     *pointer++ = _type;
     *pointer++ = _length;
@@ -496,7 +496,7 @@ const uint32_t IPAddressBER::encode(unsigned char *buffer) {
 }
 
 const uint32_t IPAddressBER::decode(unsigned char *buffer) {
-	unsigned char *pointer = buffer;
+    unsigned char *pointer = buffer;
     // T
     if (*pointer++ == _type) {
         // L
@@ -559,7 +559,7 @@ OpaqueBER::~OpaqueBER() {
 }
 
 const uint32_t OpaqueBER::encode(unsigned char *buffer) {
-	unsigned char *pointer = buffer;
+    unsigned char *pointer = buffer;
     // T, L, V
     *pointer++ = _type;
     *pointer++ = _length;
@@ -568,7 +568,7 @@ const uint32_t OpaqueBER::encode(unsigned char *buffer) {
 }
 
 const uint32_t OpaqueBER::decode(unsigned char *buffer) {
-	unsigned char *pointer = buffer;
+    unsigned char *pointer = buffer;
     // T
     if (*pointer++ == TYPE_OPAQUE) {
         // L
@@ -625,7 +625,7 @@ FloatBER::FloatBER(const float value) :
 }
 
 const uint32_t FloatBER::encode(unsigned char *buffer) {
-	unsigned char *pointer = buffer;
+    unsigned char *pointer = buffer;
     // T
     Type __type(_type);
     pointer += __type.encode(pointer);
@@ -641,7 +641,7 @@ const uint32_t FloatBER::encode(unsigned char *buffer) {
 }
 
 const uint32_t FloatBER::decode(unsigned char *buffer) {
-	unsigned char *pointer = buffer;
+    unsigned char *pointer = buffer;
     // T
     Type __type(0);
     pointer += __type.decode(pointer);

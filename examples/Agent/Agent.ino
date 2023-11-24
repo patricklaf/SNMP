@@ -84,7 +84,7 @@ void onMessage(const SNMP::Message *message, const IPAddress remote, const uint1
 }
 
 void setup() {
-	// Serial
+    // Serial
 #if ARDUINO_ARCH_AVR
     Serial.begin(9600);
 #endif
@@ -93,8 +93,8 @@ void setup() {
 #endif
     // Ethernet
 #if ARDUINO_ARCH_AVR
-	byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
-	Ethernet.begin(mac, IPAddress(192, 168, 2, 2));
+    byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
+    Ethernet.begin(mac, IPAddress(192, 168, 2, 2));
 #endif
 #if ARDUINO_ARCH_STM32
     Ethernet.begin(IPAddress(192, 168, 2, 2));

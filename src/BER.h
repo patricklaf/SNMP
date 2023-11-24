@@ -216,30 +216,30 @@ public:
     }
 
     void setValue(const int32_t value) {
-		_value = value;
-    	if (_value & 0x80000000) {
-    		// Negative
-    		// L
-    		for (_length = 4; _length > 1; --_length) {
-    			uint16_t word = _value >> (8 * (_length - 2));
-    			if ((word & 0xFF80) != 0xFF80) {
-					break;
-    			}
-    		}
-    	} else {
-    		// Positive
-			// L
-			_length = 0;
-			bool carry = false;
-			do {
-				carry = _value & 0x80;
-				_value >>= 8;
-				_length++;
-			} while (_value | carry);
-    	}
-		// V
-		_value = value;
-		_size = _length + 2;
+        _value = value;
+        if (_value & 0x80000000) {
+            // Negative
+            // L
+            for (_length = 4; _length > 1; --_length) {
+                uint16_t word = _value >> (8 * (_length - 2));
+                if ((word & 0xFF80) != 0xFF80) {
+                    break;
+                }
+            }
+        } else {
+            // Positive
+            // L
+            _length = 0;
+            bool carry = false;
+            do {
+                carry = _value & 0x80;
+                _value >>= 8;
+                _length++;
+            } while (_value | carry);
+        }
+        // V
+        _value = value;
+        _size = _length + 2;
     }
 
 private:
@@ -360,7 +360,7 @@ public:
     }
 
     BER* add(BER *ber) {
-//		_bers.push_back(ber);
+//        _bers.push_back(ber);
         _bers[_count++] = ber;
         _length += ber->getSize();
         _size = _length + 2;
@@ -372,7 +372,7 @@ public:
             // FIXME maybe useless
             _length -= _bers[--_count]->getSize();
             _size = _length + 2;
-//			delete  _bers[_count];
+//            delete  _bers[_count];
         }
     }
 
@@ -381,12 +381,12 @@ public:
     }
 
     const uint32_t count() const {
-//		return _bers.size();
+//        return _bers.size();
         return _count;
     }
 
 private:
-//	std::vector<BER*> _bers;
+//    std::vector<BER*> _bers;
     uint32_t _count = 0;
     BER *_bers[SIZE_SEQUENCE];
 
