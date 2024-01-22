@@ -447,23 +447,92 @@ private:
     uint8_t _value[SIZE_IPADDRESS] = { 0 };
 };
 
-class Counter32BER: public IntegerBER {
+template <class T>
+class UIntegerBER: public BER {
+protected:
+    UIntegerBER(const T value, const uint8_t type) : BER(type) {
+    	setValue(value);
+    }
+
 public:
-    Counter32BER(const uint32_t value);
+    virtual const uint32_t encode(unsigned char *buffer) {
+        T value = _value;
+        unsigned char *pointer = buffer;
+        // T, L
+        *pointer++ = _type;
+        *pointer = _length;
+        // V
+        value = _value;
+        pointer += _length;
+        for (uint32_t index = 0; index < _length; ++index) {
+            *pointer-- = value & 0xFF;
+            value >>= 8;
+        }
+        return _size;
+    }
+
+    const uint32_t decode(unsigned char *buffer) {
+        unsigned char *pointer = buffer;
+        // T, L, V
+        if (*pointer++ == _type) {
+            _length = *pointer++;
+            _value = 0;
+            for (uint32_t index = 0; index < _length; ++index) {
+                _value <<= 8;
+                _value |= static_cast<uint8_t>(*pointer++);
+            }
+            _size = pointer - buffer;
+        }
+        return _size;
+    }
+
+    const T getValue() const {
+        return _value;
+    }
+
+    void setValue(const T value) {
+        _value = value;
+        // L
+        _length = 0;
+        bool carry = false;
+        do {
+            carry = _value & 0x80;
+            _value >>= 8;
+            _length++;
+        } while (_value | carry);
+        // V
+        _value = value;
+        _size = _length + 2;
+    }
+
+private:
+	T _value;
+};
+
+class Counter32BER: public UIntegerBER<uint32_t> {
+public:
+    Counter32BER(const uint64_t value) : UIntegerBER(value, TYPE_COUNTER32) {};
     virtual ~Counter32BER() {
     }
 };
 
-class Gauge32BER: public IntegerBER {
+class Counter64BER: public UIntegerBER<uint64_t> {
 public:
-    Gauge32BER(const uint32_t value);
+	Counter64BER(const uint64_t value) : UIntegerBER(value, TYPE_COUNTER64) {};
+    virtual ~Counter64BER() {
+    }
+};
+
+class Gauge32BER: public UIntegerBER<uint32_t> {
+public:
+    Gauge32BER(const uint64_t value) : UIntegerBER(value, TYPE_GAUGE32) {};
     virtual ~Gauge32BER() {
     }
 };
 
-class TimeTicksBER: public IntegerBER {
+class TimeTicksBER: public UIntegerBER<uint32_t> {
 public:
-    TimeTicksBER(const uint32_t value);
+    TimeTicksBER(const uint64_t value) : UIntegerBER(value, TYPE_TIMETICKS) {};
     virtual ~TimeTicksBER() {
     }
 };

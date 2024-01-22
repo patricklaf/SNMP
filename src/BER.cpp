@@ -510,33 +510,6 @@ const uint32_t IPAddressBER::decode(unsigned char *buffer) {
     return _size;
 }
 
-////////////////
-// Counter 32 //
-////////////////
-
-Counter32BER::Counter32BER(const uint32_t value) :
-        IntegerBER(value) {
-    _type = TYPE_COUNTER32;
-}
-
-//////////////
-// Gauge 32 //
-//////////////
-
-Gauge32BER::Gauge32BER(const uint32_t value) :
-        IntegerBER(value) {
-    _type = TYPE_GAUGE32;
-}
-
-////////////////
-// Time ticks //
-////////////////
-
-TimeTicksBER::TimeTicksBER(const uint32_t value) :
-        IntegerBER(value) {
-    _type = TYPE_TIMETICKS;
-}
-
 ////////////
 // Opaque //
 ////////////
