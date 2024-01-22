@@ -511,7 +511,7 @@ private:
 
 class Counter32BER: public UIntegerBER<uint32_t> {
 public:
-    Counter32BER(const uint64_t value) : UIntegerBER(value, TYPE_COUNTER32) {};
+    Counter32BER(const uint32_t value) : UIntegerBER(value, TYPE_COUNTER32) {};
     virtual ~Counter32BER() {
     }
 };
