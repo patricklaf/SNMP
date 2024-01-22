@@ -26,10 +26,12 @@ The library supports:
   - Null
   - ObjectIdentifier
   - Sequence
+  - IPAddress
   - Counter32
   - Gauge32
   - TimeTicks
   - Opaque
+  - Counter64
   - Float
   - OpaqueFloat
  
