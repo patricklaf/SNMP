@@ -24,9 +24,6 @@ jobs:
             - examples/Agent
             - examples/Manager
             - examples/MPOD
-          librariedvanced
-          libraries: |
-          libraries: MPOD
           libraries: |
             # Install the library from the local path.
             - source-path: ./
