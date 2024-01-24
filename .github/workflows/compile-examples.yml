@@ -22,6 +22,7 @@ jobs:
             # This is formatted as a YAML list, which makes it possible to have multiple sketch paths if needed.
             - examples/
           libraries: |
+            # Install the library from the local path.
+            - source-path: ./
+            # Additional library dependencies can be listed here.
             - name: Ethernet
-          cli-compile-flags: |
-            - --build-property build.extra_flags="-UARDUINO_ARCH_STM32"
