@@ -11,7 +11,14 @@
  Created 22/03/2022 by Patrick Lafarguette
  */
 
+#if ARDUINO_ARCH_AVR
+#include <Ethernet.h> // Ethernet support. Replace if needed.
+#endif
+
+#if ARDUINO_ARCH_STM32
 #include <STM32Ethernet.h> // Ethernet support. Replace if needed.
+#endif
+
 #include <SNMP.h>
 
 EthernetUDP udp;
