@@ -68,11 +68,11 @@ enum {
 enum {
     // Universal
     TYPE_BOOLEAN = CLASS_UNIVERSAL | FORM_PRIMITIVE | 0x01,    // 0x01
-    TYPE_INTEGER,
-    TYPE_BITSTRING,
-    TYPE_OCTETSTRING,
-    TYPE_NULL,
-    TYPE_OBJECTIDENTIFIER,
+    TYPE_INTEGER,                                              // 0x02
+    TYPE_BITSTRING,                                            // 0x03
+    TYPE_OCTETSTRING,                                          // 0x04
+    TYPE_NULL,                                                 // 0x05
+    TYPE_OBJECTIDENTIFIER,                                     // 0x06
     TYPE_SEQUENCE = CLASS_UNIVERSAL | FORM_CONSTRUCTED | 0x10, // 0x30
     // Application
     TYPE_IPADDRESS = CLASS_APPLICATION | 0x00,                 // 0x40
@@ -525,14 +525,14 @@ public:
 
 class Gauge32BER: public UIntegerBER<uint32_t> {
 public:
-    Gauge32BER(const uint64_t value) : UIntegerBER(value, TYPE_GAUGE32) {};
+    Gauge32BER(const uint32_t value) : UIntegerBER(value, TYPE_GAUGE32) {};
     virtual ~Gauge32BER() {
     }
 };
 
 class TimeTicksBER: public UIntegerBER<uint32_t> {
 public:
-    TimeTicksBER(const uint64_t value) : UIntegerBER(value, TYPE_TIMETICKS) {};
+    TimeTicksBER(const uint32_t value) : UIntegerBER(value, TYPE_TIMETICKS) {};
     virtual ~TimeTicksBER() {
     }
 };
