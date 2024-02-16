@@ -418,11 +418,26 @@ const uint32_t SequenceBER::decode(unsigned char *buffer) {
                 case TYPE_OBJECTIDENTIFIER:
                     ber = new ObjectIdentifierBER(nullptr);
                     break;
+                case TYPE_IPADDRESS:
+                    ber = new IPAddressBER(nullptr);
+                    break;
+                case TYPE_COUNTER32:
+                    ber = new Counter32BER(0);
+                    break;
+                case TYPE_GAUGE32:
+                    ber = new Gauge32BER(0);
+                    break;
                 case TYPE_TIMETICKS:
                     ber = new TimeTicksBER(0);
                     break;
                 case TYPE_OPAQUE:
                     ber = new OpaqueBER(nullptr);
+                    break;
+                case TYPE_COUNTER64:
+                    ber = new Counter64BER(0);
+                    break;
+                case TYPE_FLOAT:
+                    ber = new FloatBER(0);
                     break;
                 case TYPE_NOSUCHOBJECT:
                 case TYPE_NOSUCHINSTANCE:
@@ -433,6 +448,11 @@ const uint32_t SequenceBER::decode(unsigned char *buffer) {
                 case TYPE_GETNEXTREQUEST:
                 case TYPE_GETRESPONSE:
                 case TYPE_SETREQUEST:
+                case TYPE_TRAP:
+                case TYPE_GETBULKREQUEST:
+                case TYPE_INFORMREQUEST:
+                case TYPE_SNMPV2TRAP:
+                case TYPE_REPORT:
                     ber = new SequenceBER(type);
                     break;
                 default:
