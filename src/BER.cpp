@@ -419,7 +419,7 @@ const uint32_t SequenceBER::decode(unsigned char *buffer) {
                     ber = new ObjectIdentifierBER(nullptr);
                     break;
                 case TYPE_IPADDRESS:
-                    ber = new IPAddressBER(nullptr);
+                    ber = new IPAddressBER(IPAddress());
                     break;
                 case TYPE_COUNTER32:
                     ber = new Counter32BER(0);
