@@ -1,0 +1,13 @@
+<map id="SNMP::IntegerBER" name="SNMP::IntegerBER">
+<area shape="rect" id="Node000001" title="BER object to handle integer." alt="" coords="7,248,141,275"/>
+<area shape="rect" id="Node000002" href="$class_s_n_m_p_1_1_b_e_r.html" title="BER object." alt="" coords="27,172,121,199"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="77,214,77,248,71,248,71,214"/>
+<area shape="rect" id="Node000003" href="$class_s_n_m_p_1_1_base.html" title="Base class for BER, Length and Type." alt="" coords="25,5,123,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="44,43,25,61,11,82,8,95,11,107,21,126,33,143,60,170,56,173,29,146,16,129,6,109,3,95,6,80,21,57,40,39"/>
+<area shape="rect" id="Node000004" href="$class_s_n_m_p_1_1_length.html" title="Length of a BER object." alt="" coords="21,81,127,108"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="77,47,77,81,71,81,71,47"/>
+<area shape="rect" id="Node000005" href="$class_s_n_m_p_1_1_type.html" title="Type of a BER object." alt="" coords="152,81,247,108"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="110,38,179,79,177,83,107,42"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="77,124,77,171,71,171,71,124"/>
+<area shape="poly" id="edge5_Node000002_Node000005" title=" " alt="" coords="171,119,94,174,90,169,168,115"/>
+</map>

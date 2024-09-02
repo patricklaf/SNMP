@@ -1,0 +1,5 @@
+<map id="SNMP::Agent" name="SNMP::Agent">
+<area shape="rect" id="Node000001" title="SNMP agent." alt="" coords="7,80,109,107"/>
+<area shape="rect" id="Node000002" href="$class_s_n_m_p_1_1_s_n_m_p.html" title=" " alt="" coords="5,5,111,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="61,48,61,80,55,80,55,48"/>
+</map>

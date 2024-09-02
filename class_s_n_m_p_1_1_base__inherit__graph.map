@@ -1,0 +1,61 @@
+<map id="SNMP::Base" name="SNMP::Base">
+<area shape="rect" id="Node000001" title="Base class for BER, Length and Type." alt="" coords="5,455,103,481"/>
+<area shape="rect" id="Node000002" href="$class_s_n_m_p_1_1_b_e_r.html" title="BER object." alt="" coords="157,404,251,431"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,447,161,429,163,434,111,452"/>
+<area shape="rect" id="Node000029" href="$class_s_n_m_p_1_1_length.html" title="Length of a BER object." alt="" coords="151,455,257,481"/>
+<area shape="poly" id="edge28_Node000001_Node000029" title=" " alt="" coords="118,465,150,465,150,471,118,471"/>
+<area shape="rect" id="Node000030" href="$class_s_n_m_p_1_1_type.html" title="Type of a BER object." alt="" coords="156,505,252,532"/>
+<area shape="poly" id="edge29_Node000001_Node000030" title=" " alt="" coords="111,484,163,502,161,507,109,489"/>
+<area shape="rect" id="Node000003" href="$class_s_n_m_p_1_1_array_b_e_r.html" title=" " alt="" coords="308,40,483,83"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="204,388,210,329,226,252,238,211,255,170,277,132,303,97,323,81,326,85,307,101,281,134,260,172,243,213,231,253,215,330,209,389"/>
+<area shape="rect" id="Node000007" href="$class_s_n_m_p_1_1_array_b_e_r.html" title=" " alt="" coords="317,111,473,137"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="206,388,215,339,232,277,261,212,280,182,303,155,334,136,337,140,307,159,284,185,266,215,237,279,220,340,211,389"/>
+<area shape="rect" id="Node000009" href="$class_s_n_m_p_1_1_u_integer_b_e_r.html" title=" " alt="" coords="320,169,470,212"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="210,388,223,351,242,307,269,262,303,222,320,210,323,215,307,226,273,265,247,309,228,353,215,390"/>
+<area shape="rect" id="Node000013" href="$class_s_n_m_p_1_1_u_integer_b_e_r.html" title=" " alt="" coords="320,236,470,279"/>
+<area shape="poly" id="edge12_Node000002_Node000013" title=" " alt="" coords="218,389,253,338,277,312,303,289,323,277,325,282,307,293,280,316,257,342,223,392"/>
+<area shape="rect" id="Node000015" href="$class_s_n_m_p_1_1_array_b_e_r.html" title="Base class for BER array of BERs." alt="" coords="316,303,474,329"/>
+<area shape="poly" id="edge14_Node000002_Node000015" title=" " alt="" coords="229,391,263,364,304,339,332,327,334,332,306,344,266,368,233,396"/>
+<area shape="rect" id="Node000016" href="$class_s_n_m_p_1_1_boolean_b_e_r.html" title="BER object to handle boolean." alt="" coords="325,353,466,380"/>
+<area shape="poly" id="edge15_Node000002_Node000016" title=" " alt="" coords="265,398,341,378,343,383,267,404"/>
+<area shape="rect" id="Node000017" href="$class_s_n_m_p_1_1_float_b_e_r.html" title="BER object to handle float." alt="" coords="334,404,457,431"/>
+<area shape="poly" id="edge16_Node000002_Node000017" title=" " alt="" coords="266,415,333,415,333,420,266,420"/>
+<area shape="rect" id="Node000019" href="$class_s_n_m_p_1_1_integer_b_e_r.html" title="BER object to handle integer." alt="" coords="329,455,462,481"/>
+<area shape="poly" id="edge18_Node000002_Node000019" title=" " alt="" coords="267,431,343,451,341,457,265,436"/>
+<area shape="rect" id="Node000020" href="$class_s_n_m_p_1_1_null_b_e_r.html" title="BER object to handle null." alt="" coords="337,505,453,532"/>
+<area shape="poly" id="edge19_Node000002_Node000020" title=" " alt="" coords="252,436,259,441,273,454,283,467,292,479,306,491,338,505,335,510,304,496,288,483,278,470,269,458,255,445,249,441"/>
+<area shape="rect" id="Node000024" href="$class_s_n_m_p_1_1_object_identifier_b_e_r.html" title="BER object to handle OID." alt="" coords="305,556,485,583"/>
+<area shape="poly" id="edge23_Node000002_Node000024" title=" " alt="" coords="256,438,259,441,276,468,282,494,289,519,296,530,307,542,324,553,322,558,303,546,291,533,284,521,277,495,271,470,255,444,252,442"/>
+<area shape="rect" id="Node000025" href="$class_s_n_m_p_1_1_octet_string_b_e_r.html" title="BER object to handle octet string." alt="" coords="315,607,475,633"/>
+<area shape="poly" id="edge24_Node000002_Node000025" title=" " alt="" coords="257,438,259,441,273,461,279,482,282,520,285,557,293,575,307,593,323,604,320,608,303,597,288,578,280,558,277,520,274,483,268,464,255,444,253,442"/>
+<area shape="rect" id="Node000027" href="$class_s_n_m_p_1_1_opaque_b_e_r.html" title="BER object to handle embedded BER object." alt="" coords="326,657,465,684"/>
+<area shape="poly" id="edge26_Node000002_Node000027" title=" " alt="" coords="257,439,259,441,275,468,283,495,281,546,280,571,281,595,289,619,307,643,327,657,324,662,303,647,285,622,276,596,274,571,276,546,277,496,271,470,255,444,253,442"/>
+<area shape="rect" id="Node000028" href="$class_s_n_m_p_1_1_u_integer_b_e_r.html" title="Base class for unsigned integer BER." alt="" coords="309,708,482,735"/>
+<area shape="poly" id="edge27_Node000002_Node000028" title=" " alt="" coords="257,439,259,441,278,475,286,509,285,541,281,572,277,603,277,633,286,663,307,694,321,705,318,710,303,698,281,666,272,634,272,603,275,571,280,540,280,509,273,477,255,444,253,442"/>
+<area shape="rect" id="Node000004" href="$class_s_n_m_p_1_1_sequence_b_e_r.html" title="BER object to handle sequence of BER objects." alt="" coords="552,31,704,57"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="498,51,551,47,552,52,498,56"/>
+<area shape="rect" id="Node000005" href="$class_s_n_m_p_1_1_message.html" title="SNMP message object." alt="" coords="778,5,898,32"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="719,30,777,23,777,29,720,36"/>
+<area shape="rect" id="Node000006" href="$class_s_n_m_p_1_1_var_bind_list.html" title="BER object to handle a list of variable bindings." alt="" coords="771,56,905,83"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="720,52,770,59,770,64,719,58"/>
+<area shape="rect" id="Node000008" href="$class_s_n_m_p_1_1_var_bind.html" title="BER object to handle variable binding." alt="" coords="571,81,685,108"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="489,110,570,99,571,104,489,115"/>
+<area shape="rect" id="Node000010" href="$class_s_n_m_p_1_1_counter32_b_e_r.html" title="BER object to handle 32&#45;bit counter." alt="" coords="551,132,705,159"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="485,170,555,157,556,162,486,176"/>
+<area shape="rect" id="Node000011" href="$class_s_n_m_p_1_1_gauge32_b_e_r.html" title="BER object to handle 32&#45;bit gauge." alt="" coords="555,183,701,209"/>
+<area shape="poly" id="edge10_Node000009_Node000011" title=" " alt="" coords="485,190,554,192,554,197,485,195"/>
+<area shape="rect" id="Node000012" href="$class_s_n_m_p_1_1_time_ticks_b_e_r.html" title="BER object to handle time." alt="" coords="551,233,705,260"/>
+<area shape="poly" id="edge11_Node000009_Node000012" title=" " alt="" coords="486,210,570,230,569,235,485,215"/>
+<area shape="rect" id="Node000014" href="$class_s_n_m_p_1_1_counter64_b_e_r.html" title="BER object to handle 64&#45;bit counter." alt="" coords="551,284,705,311"/>
+<area shape="poly" id="edge13_Node000013_Node000014" title=" " alt="" coords="486,270,551,282,550,287,485,275"/>
+<area shape="rect" id="Node000018" href="$class_s_n_m_p_1_1_opaque_float_b_e_r.html" title="BER object to handle float." alt="" coords="544,404,712,431"/>
+<area shape="poly" id="edge17_Node000017_Node000018" title=" " alt="" coords="472,415,543,415,543,420,472,420"/>
+<area shape="rect" id="Node000021" href="$class_s_n_m_p_1_1_end_of_m_i_b_view_b_e_r.html" title="BER object to handle endOfMIBView exception." alt="" coords="537,455,719,481"/>
+<area shape="poly" id="edge20_Node000020_Node000021" title=" " alt="" coords="468,500,563,479,564,485,469,505"/>
+<area shape="rect" id="Node000022" href="$class_s_n_m_p_1_1_no_such_instance_b_e_r.html" title="BER object to handle noSuchInstance exception." alt="" coords="533,505,723,532"/>
+<area shape="poly" id="edge21_Node000020_Node000022" title=" " alt="" coords="469,516,533,516,533,521,469,521"/>
+<area shape="rect" id="Node000023" href="$class_s_n_m_p_1_1_no_such_object_b_e_r.html" title="BER object to handle noSuchObject exception." alt="" coords="539,556,717,583"/>
+<area shape="poly" id="edge22_Node000020_Node000023" title=" " alt="" coords="469,532,564,553,563,558,468,537"/>
+<area shape="rect" id="Node000026" href="$class_s_n_m_p_1_1_i_p_address_b_e_r.html" title="BER object to handle IP address." alt="" coords="551,607,705,633"/>
+<area shape="poly" id="edge25_Node000025_Node000026" title=" " alt="" coords="491,617,550,617,550,623,491,623"/>
+</map>

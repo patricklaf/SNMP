@@ -1,0 +1,7 @@
+<map id="SNMP::OpaqueBER" name="SNMP::OpaqueBER">
+<area shape="rect" id="Node000001" title="BER object to handle embedded BER object." alt="" coords="5,155,145,181"/>
+<area shape="rect" id="Node000002" href="$class_s_n_m_p_1_1_b_e_r.html" title="BER object." alt="" coords="28,80,122,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="78,122,78,154,72,154,72,122"/>
+<area shape="rect" id="Node000003" href="$class_s_n_m_p_1_1_base.html" title="Base class for BER, Length and Type." alt="" coords="26,5,124,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="78,48,78,80,72,80,72,48"/>
+</map>

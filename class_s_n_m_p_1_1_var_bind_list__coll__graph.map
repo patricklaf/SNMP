@@ -1,0 +1,18 @@
+<map id="SNMP::VarBindList" name="SNMP::VarBindList">
+<area shape="rect" id="Node000001" title="BER object to handle a list of variable bindings." alt="" coords="26,431,160,457"/>
+<area shape="rect" id="Node000002" href="$class_s_n_m_p_1_1_sequence_b_e_r.html" title="BER object to handle sequence of BER objects." alt="" coords="17,355,169,381"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,396,96,430,90,430,90,396"/>
+<area shape="rect" id="Node000003" href="$class_s_n_m_p_1_1_array_b_e_r.html" title=" " alt="" coords="5,263,181,305"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="96,321,96,354,90,354,90,321"/>
+<area shape="rect" id="Node000004" href="$class_s_n_m_p_1_1_b_e_r.html" title="BER object." alt="" coords="46,172,140,199"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="93,215,93,223,94,262,89,262,88,223,88,214"/>
+<area shape="poly" id="edge9_Node000003_Node000004" title=" " alt="" coords="96,215,96,262,90,262,90,215"/>
+<area shape="rect" id="Node000005" href="$class_s_n_m_p_1_1_base.html" title="Base class for BER, Length and Type." alt="" coords="44,5,142,32"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="63,43,44,61,30,82,27,95,30,107,40,126,52,143,79,170,75,173,48,146,35,129,25,109,22,95,25,80,40,57,59,39"/>
+<area shape="rect" id="Node000006" href="$class_s_n_m_p_1_1_length.html" title="Length of a BER object." alt="" coords="40,81,146,108"/>
+<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="96,47,96,81,90,81,90,47"/>
+<area shape="rect" id="Node000007" href="$class_s_n_m_p_1_1_type.html" title="Type of a BER object." alt="" coords="171,81,266,108"/>
+<area shape="poly" id="edge8_Node000007_Node000005" title=" " alt="" coords="129,38,198,79,196,83,126,42"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="96,124,96,171,90,171,90,124"/>
+<area shape="poly" id="edge7_Node000004_Node000007" title=" " alt="" coords="190,119,112,174,109,169,186,115"/>
+</map>

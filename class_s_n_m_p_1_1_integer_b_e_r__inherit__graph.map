@@ -1,0 +1,7 @@
+<map id="SNMP::IntegerBER" name="SNMP::IntegerBER">
+<area shape="rect" id="Node000001" title="BER object to handle integer." alt="" coords="5,155,139,181"/>
+<area shape="rect" id="Node000002" href="$class_s_n_m_p_1_1_b_e_r.html" title="BER object." alt="" coords="25,80,119,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,122,75,154,69,154,69,122"/>
+<area shape="rect" id="Node000003" href="$class_s_n_m_p_1_1_base.html" title="Base class for BER, Length and Type." alt="" coords="23,5,121,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="75,48,75,80,69,80,69,48"/>
+</map>

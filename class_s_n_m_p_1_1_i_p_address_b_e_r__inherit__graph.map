@@ -1,0 +1,9 @@
+<map id="SNMP::IPAddressBER" name="SNMP::IPAddressBER">
+<area shape="rect" id="Node000001" title="BER object to handle IP address." alt="" coords="8,229,163,256"/>
+<area shape="rect" id="Node000002" href="$class_s_n_m_p_1_1_octet_string_b_e_r.html" title="BER object to handle octet string." alt="" coords="5,155,166,181"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="88,197,88,229,83,229,83,197"/>
+<area shape="rect" id="Node000003" href="$class_s_n_m_p_1_1_b_e_r.html" title="BER object." alt="" coords="38,80,133,107"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="88,122,88,154,83,154,83,122"/>
+<area shape="rect" id="Node000004" href="$class_s_n_m_p_1_1_base.html" title="Base class for BER, Length and Type." alt="" coords="37,5,134,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="88,48,88,80,83,80,83,48"/>
+</map>

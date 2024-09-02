@@ -1,0 +1,7 @@
+<map id="SNMP::BooleanBER" name="SNMP::BooleanBER">
+<area shape="rect" id="Node000001" title="BER object to handle boolean." alt="" coords="5,155,147,181"/>
+<area shape="rect" id="Node000002" href="$class_s_n_m_p_1_1_b_e_r.html" title="BER object." alt="" coords="29,80,123,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="79,122,79,154,73,154,73,122"/>
+<area shape="rect" id="Node000003" href="$class_s_n_m_p_1_1_base.html" title="Base class for BER, Length and Type." alt="" coords="27,5,125,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="79,48,79,80,73,80,73,48"/>
+</map>

@@ -1,0 +1,15 @@
+<map id="SNMP::NoSuchInstanceBER" name="SNMP::NoSuchInstanceBER">
+<area shape="rect" id="Node000001" title="BER object to handle noSuchInstance exception." alt="" coords="5,324,195,351"/>
+<area shape="rect" id="Node000002" href="$class_s_n_m_p_1_1_null_b_e_r.html" title="BER object to handle null." alt="" coords="42,248,158,275"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="103,290,103,324,97,324,97,290"/>
+<area shape="rect" id="Node000003" href="$class_s_n_m_p_1_1_b_e_r.html" title="BER object." alt="" coords="53,172,147,199"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="103,214,103,248,97,248,97,214"/>
+<area shape="rect" id="Node000004" href="$class_s_n_m_p_1_1_base.html" title="Base class for BER, Length and Type." alt="" coords="51,5,149,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="70,43,51,61,37,82,34,95,37,107,47,126,59,143,86,170,82,173,55,146,42,129,32,109,29,95,32,80,47,57,66,39"/>
+<area shape="rect" id="Node000005" href="$class_s_n_m_p_1_1_length.html" title="Length of a BER object." alt="" coords="47,81,153,108"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="103,47,103,81,97,81,97,47"/>
+<area shape="rect" id="Node000006" href="$class_s_n_m_p_1_1_type.html" title="Type of a BER object." alt="" coords="178,81,273,108"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="136,38,205,79,203,83,133,42"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="103,124,103,171,97,171,97,124"/>
+<area shape="poly" id="edge6_Node000003_Node000006" title=" " alt="" coords="197,119,119,174,116,169,193,115"/>
+</map>

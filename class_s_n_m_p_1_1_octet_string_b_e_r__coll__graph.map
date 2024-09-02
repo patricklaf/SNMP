@@ -1,0 +1,13 @@
+<map id="SNMP::OctetStringBER" name="SNMP::OctetStringBER">
+<area shape="rect" id="Node000001" title="BER object to handle octet string." alt="" coords="5,248,166,275"/>
+<area shape="rect" id="Node000002" href="$class_s_n_m_p_1_1_b_e_r.html" title="BER object." alt="" coords="38,172,133,199"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="88,214,88,248,83,248,83,214"/>
+<area shape="rect" id="Node000003" href="$class_s_n_m_p_1_1_base.html" title="Base class for BER, Length and Type." alt="" coords="37,5,134,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="55,43,37,61,23,82,20,95,23,107,32,126,45,143,71,170,68,173,40,146,27,129,18,109,14,95,18,80,32,57,52,39"/>
+<area shape="rect" id="Node000004" href="$class_s_n_m_p_1_1_length.html" title="Length of a BER object." alt="" coords="32,81,139,108"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="88,47,88,81,83,81,83,47"/>
+<area shape="rect" id="Node000005" href="$class_s_n_m_p_1_1_type.html" title="Type of a BER object." alt="" coords="163,81,259,108"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="121,38,191,79,188,83,118,42"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="88,124,88,171,83,171,83,124"/>
+<area shape="poly" id="edge5_Node000002_Node000005" title=" " alt="" coords="182,119,105,174,102,169,179,115"/>
+</map>

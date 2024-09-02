@@ -1,0 +1,13 @@
+<map id="SNMP::BooleanBER" name="SNMP::BooleanBER">
+<area shape="rect" id="Node000001" title="BER object to handle boolean." alt="" coords="5,248,147,275"/>
+<area shape="rect" id="Node000002" href="$class_s_n_m_p_1_1_b_e_r.html" title="BER object." alt="" coords="29,172,123,199"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="79,214,79,248,73,248,73,214"/>
+<area shape="rect" id="Node000003" href="$class_s_n_m_p_1_1_base.html" title="Base class for BER, Length and Type." alt="" coords="27,5,125,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="46,43,27,61,13,82,10,95,13,107,23,126,35,143,62,170,58,173,31,146,18,129,8,109,5,95,8,80,23,57,42,39"/>
+<area shape="rect" id="Node000004" href="$class_s_n_m_p_1_1_length.html" title="Length of a BER object." alt="" coords="23,81,129,108"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="79,47,79,81,73,81,73,47"/>
+<area shape="rect" id="Node000005" href="$class_s_n_m_p_1_1_type.html" title="Type of a BER object." alt="" coords="154,81,249,108"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="112,38,181,79,179,83,109,42"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="79,124,79,171,73,171,73,124"/>
+<area shape="poly" id="edge5_Node000002_Node000005" title=" " alt="" coords="173,119,95,174,92,169,169,115"/>
+</map>

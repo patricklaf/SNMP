@@ -1,0 +1,16 @@
+<map id="SNMP::VarBind" name="SNMP::VarBind">
+<area shape="rect" id="Node000001" title="BER object to handle variable binding." alt="" coords="27,339,140,365"/>
+<area shape="rect" id="Node000002" href="$class_s_n_m_p_1_1_array_b_e_r.html" title=" " alt="" coords="5,263,162,289"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="86,304,86,338,81,338,81,304"/>
+<area shape="rect" id="Node000003" href="$class_s_n_m_p_1_1_b_e_r.html" title="BER object." alt="" coords="36,172,131,199"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="84,215,83,223,85,262,80,262,78,223,79,214"/>
+<area shape="poly" id="edge8_Node000002_Node000003" title=" " alt="" coords="86,214,86,262,81,262,81,214"/>
+<area shape="rect" id="Node000004" href="$class_s_n_m_p_1_1_base.html" title="Base class for BER, Length and Type." alt="" coords="35,5,132,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="53,43,35,61,21,82,18,95,21,107,30,126,43,143,69,170,66,173,38,146,25,129,16,109,12,95,16,80,30,57,50,39"/>
+<area shape="rect" id="Node000005" href="$class_s_n_m_p_1_1_length.html" title="Length of a BER object." alt="" coords="30,81,137,108"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="86,47,86,81,81,81,81,47"/>
+<area shape="rect" id="Node000006" href="$class_s_n_m_p_1_1_type.html" title="Type of a BER object." alt="" coords="161,81,257,108"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="119,38,189,79,186,83,116,42"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="86,124,86,171,81,171,81,124"/>
+<area shape="poly" id="edge6_Node000003_Node000006" title=" " alt="" coords="180,119,103,174,100,169,177,115"/>
+</map>

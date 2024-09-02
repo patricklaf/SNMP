@@ -1,0 +1,7 @@
+<map id="SNMP::Message::Generic" name="SNMP::Message::Generic">
+<area shape="rect" id="Node000001" title=" " alt="" coords="45,112,218,139"/>
+<area shape="rect" id="Node000002" href="$struct_s_n_m_p_1_1_error.html" title=" " alt="" coords="5,13,101,40"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,51,124,110,120,113,71,54"/>
+<area shape="rect" id="Node000003" href="$struct_s_n_m_p_1_1_message_1_1_generic_1_1_repeater.html" title=" " alt="" coords="125,5,298,48"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="187,62,144,113,140,110,183,58"/>
+</map>

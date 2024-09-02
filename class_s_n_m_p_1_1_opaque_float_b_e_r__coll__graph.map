@@ -1,0 +1,15 @@
+<map id="SNMP::OpaqueFloatBER" name="SNMP::OpaqueFloatBER">
+<area shape="rect" id="Node000001" title="BER object to handle float." alt="" coords="5,324,174,351"/>
+<area shape="rect" id="Node000002" href="$class_s_n_m_p_1_1_float_b_e_r.html" title="BER object to handle float." alt="" coords="28,248,151,275"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,290,92,324,87,324,87,290"/>
+<area shape="rect" id="Node000003" href="$class_s_n_m_p_1_1_b_e_r.html" title="BER object." alt="" coords="42,172,137,199"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="92,214,92,248,87,248,87,214"/>
+<area shape="rect" id="Node000004" href="$class_s_n_m_p_1_1_base.html" title="Base class for BER, Length and Type." alt="" coords="41,5,138,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="59,43,41,61,27,82,24,95,27,107,36,126,49,143,75,170,72,173,44,146,31,129,22,109,18,95,22,80,36,57,56,39"/>
+<area shape="rect" id="Node000005" href="$class_s_n_m_p_1_1_length.html" title="Length of a BER object." alt="" coords="36,81,143,108"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="92,47,92,81,87,81,87,47"/>
+<area shape="rect" id="Node000006" href="$class_s_n_m_p_1_1_type.html" title="Type of a BER object." alt="" coords="167,81,263,108"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="125,38,195,79,192,83,122,42"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="92,124,92,171,87,171,87,124"/>
+<area shape="poly" id="edge6_Node000003_Node000006" title=" " alt="" coords="186,119,109,174,106,169,183,115"/>
+</map>
