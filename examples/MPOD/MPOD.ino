@@ -13,15 +13,24 @@
 
 #if ARDUINO_ARCH_AVR
 #include <Ethernet.h> // Ethernet support. Replace if needed.
+
+EthernetUDP udp;
 #endif
 
 #if ARDUINO_ARCH_STM32
 #include <STM32Ethernet.h> // Ethernet support. Replace if needed.
+
+EthernetUDP udp;
+#endif
+
+#if ARDUINO_ARCH_ESP32
+#include <ETH.h> // Ethernet support. Replace if needed.
+
+NetworkUDP udp;
 #endif
 
 #include <SNMP.h>
 
-EthernetUDP udp;
 SNMP::Manager snmp;
 
 // Use some SNMP classes
@@ -75,7 +84,7 @@ public:
     // Create an SNMP SETREQUEST message to setup MPOD
     SNMP::Message* setup() {
         // Use read/write community, not read-only
-        SNMP::Message* message = new SNMP::Message(SNMP::VERSION2C, "guru", SNMP::TYPE_SETREQUEST);
+        SNMP::Message* message = new SNMP::Message(SNMP::Version::V2C, "guru", SNMP::Type::SetRequest);
         // In SETREQUEST, use node type and set the value.
         // OUTPUT SWITCH, integer type, 0 is OFF and 1 is ON.
         message->add(OID::NAMES[OID::OUTPUTSWITCH], new IntegerBER(0));
@@ -90,7 +99,7 @@ public:
 
     // Create an SNMP GETREQUEST message
     SNMP::Message* read() {
-        SNMP::Message* message = new SNMP::Message(SNMP::VERSION2C, "public", SNMP::TYPE_GETREQUEST);
+        SNMP::Message* message = new SNMP::Message(SNMP::Version::V2C, "public", SNMP::Type::GetRequest);
         // In GETREQUEST, values are always of type NULL.
         message->add(OID::NAMES[OID::OUTPUTSTATUS]);
         message->add(OID::NAMES[OID::OUTPUTMEASUREMENTSENSEVOLTAGE]);
@@ -100,7 +109,7 @@ public:
 
     // Create an SNMP SETREQUEST message to switch on or off the MPOD
     SNMP::Message* output(const bool on) {
-        SNMP::Message* message = new SNMP::Message(SNMP::VERSION2C, "guru", SNMP::TYPE_SETREQUEST);
+        SNMP::Message* message = new SNMP::Message(SNMP::Version::V2C, "guru", SNMP::Type::SetRequest);
         // In SETREQUEST, use node type and set the value.
         // OUTPUT SWITCH, integer type, 0 is OFF and 1 is ON.
         message->add(OID::NAMES[OID::OUTPUTSWITCH], new IntegerBER(on ? 1 : 0));
@@ -249,18 +258,32 @@ void onMessage(const SNMP::Message *message, const IPAddress remote, const uint1
 unsigned long start;
 
 void setup() {
+#if ARDUINO_ARCH_AVR
     Serial.begin(115200);
+#else
+    Serial.begin(921600);
+#endif
     // Ethernet
-    Ethernet.begin(IPAddress(192, 168, 2, 2), IPAddress(255, 255, 255, 0),
-            IPAddress(192, 168, 2, 1), IPAddress(192, 168, 2, 1));
+#if ARDUINO_ARCH_AVR
+    byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
+    Ethernet.begin(mac, IPAddress(192, 168, 2, 2));
+#endif
+#if ARDUINO_ARCH_STM32
+    Ethernet.begin(IPAddress(192, 168, 2, 2));
+#endif
+#if ARDUINO_ARCH_ESP32
+    ETH.begin();
+    ETH.config(IPAddress(192, 168, 2, 2), IPAddress(192, 168, 2, 1),
+            IPAddress(255, 255, 255, 0), IPAddress(192, 168, 2, 1));
+#endif
     // SNMP
-    snmp.begin(&udp);
+    snmp.begin(udp);
     snmp.onMessage(onMessage);
     // Start
     start = millis();
     // MPOD
     SNMP::Message *message = mpod.setup();
-    snmp.send(message, IPAddress(192, 168, 2, 3), SNMP::PORT::SNMP);
+    snmp.send(message, IPAddress(192, 168, 2, 3), SNMP::Port::SNMP);
     delete message;
 }
 
@@ -288,16 +311,16 @@ void loop() {
         if (output != NONE) {
             // If ON or OFF, send SETREQUEST to MPOD
             SNMP::Message *message = mpod.output(output == ON);
-            snmp.send(message, IPAddress(192, 168, 2, 3), SNMP::PORT::SNMP);
+            snmp.send(message, IPAddress(192, 168, 2, 3), SNMP::Port::SNMP);
             delete message;
         }
     }
     // Send a request every second
-    if (millis() - start  >= 1000) {
+    if (millis() - start >= 1000) {
         start = millis();
         // Create message to query MPOD and send it
         SNMP::Message* message = mpod.read();
-        snmp.send(message, IPAddress(192, 168, 2, 3), SNMP::PORT::SNMP);
+        snmp.send(message, IPAddress(192, 168, 2, 3), SNMP::Port::SNMP);
         delete message;
     }
 }

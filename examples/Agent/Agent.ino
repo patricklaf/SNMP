@@ -19,16 +19,36 @@
  */
 
 #if ARDUINO_ARCH_AVR
+#if ARDUINO_AVR_UNO
+#define BOARD "Uno"
+#endif
+#if ARDUINO_AVR_MEGA2560
+#define BOARD "Mega 2560"
+#endif
+
 #include <Ethernet.h> // Ethernet support. Replace if needed.
+
+EthernetUDP udp;
 #endif
 
 #if ARDUINO_ARCH_STM32
+#define BOARD "Nucleo F767ZI"
+
 #include <STM32Ethernet.h> // Ethernet support. Replace if needed.
+
+EthernetUDP udp;
+#endif
+
+#if ARDUINO_ARCH_ESP32
+#define BOARD "ESP32-POE"
+
+#include <ETH.h> // Ethernet support. Replace if needed.
+
+NetworkUDP udp;
 #endif
 
 #include <SNMP.h>
 
-EthernetUDP udp;
 SNMP::Agent snmp;
 
 // SNMPv2-MIB
@@ -46,7 +66,7 @@ SNMP::Agent snmp;
 // .1.3.6.1.2.1.1.5.0 = STRING: localhost.localdomain
 
 const char *SYSNAME_OID = "1.3.6.1.2.1.1.5.0";
-const char *SYSNAME_VALUE = "Nucleo F767ZI"; // Name of the board. Replace if needed.
+const char *SYSNAME_VALUE = BOARD; // Name of the board.
 
 // Use some SNMP classes
 using SNMP::OctetStringBER;
@@ -57,7 +77,7 @@ using SNMP::VarBindList;
 void onMessage(const SNMP::Message *message, const IPAddress remote, const uint16_t port) {
     // Get the variable binding list from the message.
     VarBindList *varbindlist = message->getVarBindList();
-    for (unsigned int index = 0; index < varbindlist->count(); ++index) {
+    for (uint8_t index = 0; index < varbindlist->count(); ++index) {
         // Each variable binding is a sequence of 2 objects:
         // - First one is and ObjectIdentifierBER. It holds the OID
         // - Second is the value of any type
@@ -67,7 +87,7 @@ void onMessage(const SNMP::Message *message, const IPAddress remote, const uint1
         if (strcmp(SYSNAME_OID, name) == 0) {
             // System name is requested. We have to send a response.
             // Create an SNMP message for response
-            SNMP::Message *response = new SNMP::Message(SNMP::VERSION2C, "public", SNMP::TYPE_GETRESPONSE);
+            SNMP::Message *response = new SNMP::Message(SNMP::Version::V2C, "public", SNMP::Type::GetResponse);
             // The response must have the same request-id as the request
             response->setRequestID(message->getRequestID());
             // SYSNAME
@@ -86,10 +106,9 @@ void onMessage(const SNMP::Message *message, const IPAddress remote, const uint1
 void setup() {
     // Serial
 #if ARDUINO_ARCH_AVR
-    Serial.begin(9600);
-#endif
-#if ARDUINO_ARCH_STM32
     Serial.begin(115200);
+#else
+    Serial.begin(921600);
 #endif
     // Ethernet
 #if ARDUINO_ARCH_AVR
@@ -99,8 +118,13 @@ void setup() {
 #if ARDUINO_ARCH_STM32
     Ethernet.begin(IPAddress(192, 168, 2, 2));
 #endif
+#if ARDUINO_ARCH_ESP32
+    ETH.begin();
+    ETH.config(IPAddress(192, 168, 2, 2), IPAddress(192, 168, 2, 1),
+            IPAddress(255, 255, 255, 0), IPAddress(192, 168, 2, 1));
+#endif
     // SNMP
-    snmp.begin(&udp);
+    snmp.begin(udp);
     snmp.onMessage(onMessage);
 }
 

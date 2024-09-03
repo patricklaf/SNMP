@@ -13,15 +13,24 @@
 
 #if ARDUINO_ARCH_AVR
 #include <Ethernet.h> // Ethernet support. Replace if needed.
+
+EthernetUDP udp;
 #endif
 
 #if ARDUINO_ARCH_STM32
 #include <STM32Ethernet.h> // Ethernet support. Replace if needed.
+
+EthernetUDP udp;
+#endif
+
+#if ARDUINO_ARCH_ESP32
+#include <ETH.h> // Ethernet support. Replace if needed.
+
+NetworkUDP udp;
 #endif
 
 #include <SNMP.h>
 
-EthernetUDP udp;
 SNMP::Manager snmp;
 
 // Use some SNMP classes
@@ -83,7 +92,7 @@ public:
 
     // Create an SNMP GETREQUEST message
     SNMP::Message* read() {
-        SNMP::Message *message = new SNMP::Message(SNMP::VERSION2C, "public", SNMP::TYPE_GETREQUEST);
+        SNMP::Message *message = new SNMP::Message(SNMP::Version::V2C, "public", SNMP::Type::GetRequest);
         // Loop for all objects to request
         for (unsigned int index = 0; index < OID::COUNT; ++index) {
             // In GETREQUEST, values are always of type NULL.
@@ -181,12 +190,26 @@ void onMessage(const SNMP::Message *message, const IPAddress remote, const uint1
 unsigned long start;
 
 void setup() {
+#if ARDUINO_ARCH_AVR
     Serial.begin(115200);
+#else
+    Serial.begin(921600);
+#endif
     // Ethernet
-    Ethernet.begin(IPAddress(192, 168, 2, 2), IPAddress(255, 255, 255, 0),
-            IPAddress(192, 168, 2, 1), IPAddress(192, 168, 2, 1));
+#if ARDUINO_ARCH_AVR
+    byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
+    Ethernet.begin(mac, IPAddress(192, 168, 2, 2));
+#endif
+#if ARDUINO_ARCH_STM32
+    Ethernet.begin(IPAddress(192, 168, 2, 2));
+#endif
+#if ARDUINO_ARCH_ESP32
+    ETH.begin();
+    ETH.config(IPAddress(192, 168, 2, 2), IPAddress(192, 168, 2, 1),
+            IPAddress(255, 255, 255, 0), IPAddress(192, 168, 2, 1));
+#endif
     // SNMP
-    snmp.begin(&udp);
+    snmp.begin(udp);
     snmp.onMessage(onMessage);
     // Start
     start = millis();
@@ -200,7 +223,7 @@ void loop() {
         start = millis();
         // Create message to query UPS and send it
         SNMP::Message *message = ups.read();
-        snmp.send(message, IPAddress(192, 168, 2, 1), SNMP::PORT::SNMP);
+        snmp.send(message, IPAddress(192, 168, 2, 1), SNMP::Port::SNMP);
         delete message;
     }
 }
