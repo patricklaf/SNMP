@@ -287,7 +287,7 @@ Agent</h2>
 <div class="line">    snmp.<a class="code hl_function" href="class_s_n_m_p_1_1_s_n_m_p.html#a22a4a28eada47332beb7061e1325539a">loop</a>();</div>
 <div class="line">}</div>
 <div class="ttc" id="aclass_s_n_m_p_1_1_s_n_m_p_html_a22a4a28eada47332beb7061e1325539a"><div class="ttname"><a href="class_s_n_m_p_1_1_s_n_m_p.html#a22a4a28eada47332beb7061e1325539a">SNMP::SNMP::loop</a></div><div class="ttdeci">void loop()</div><div class="ttdoc">Network read operation.</div><div class="ttdef"><b>Definition</b> <a href="_s_n_m_p_8h_source.html#l00072">SNMP.h:72</a></div></div>
-</div><!-- fragment --><p><a href="examples/Agent/Agent.ino">Agent.ino</a> is a complete example of an <a class="el" href="class_s_n_m_p.html" title="Base class for Agent and Manager.">SNMP</a> agent implementation.</p>
+</div><!-- fragment --><p><a href="https://github.com/patricklaf/SNMP/blob/master/examples/Agent/Agent.ino">Agent.ino</a> is a complete example of an <a class="el" href="class_s_n_m_p.html" title="Base class for Agent and Manager.">SNMP</a> agent implementation.</p>
 <h2><a class="anchor" id="autotoc_md5"></a>
 Manager</h2>
 <p>An <a class="el" href="class_s_n_m_p.html" title="Base class for Agent and Manager.">SNMP</a> manager sends request to and receives response from an <a class="el" href="class_s_n_m_p.html" title="Base class for Agent and Manager.">SNMP</a> agent.</p>
@@ -311,9 +311,9 @@ Manager</h2>
 <div class="line">    <span class="comment">// Manager loop function must be called to process incoming messages</span></div>
 <div class="line">    snmp.<a class="code hl_function" href="class_s_n_m_p_1_1_s_n_m_p.html#a22a4a28eada47332beb7061e1325539a">loop</a>();</div>
 <div class="line">}</div>
-</div><!-- fragment --><p><a href="examples/Manager/Manager.ino">Manager.ino</a> is a complete example of an <a class="el" href="class_s_n_m_p.html" title="Base class for Agent and Manager.">SNMP</a> manager implementation.</p>
-<p><a href="examples/MPOD/MPOD.ino">MPOD.ino</a> is another example of an <a class="el" href="class_s_n_m_p.html" title="Base class for Agent and Manager.">SNMP</a> manager implementation with use of SETREQUEST.</p>
-<p><a href="examples/Advanced/Advanced.ino">Advanced.ino</a> is the more complete example. It shows how to write an <a class="el" href="class_s_n_m_p.html" title="Base class for Agent and Manager.">SNMP</a> agent able to handle GETREQUEST, GETNEXTREQUEST, GETBULKREQUEST and SETREQUEST and generate TRAP, INFORMREQUEST and SNMPV2TRAP.</p>
+</div><!-- fragment --><p><a href="https://github.com/patricklaf/SNMP/blob/master/examples/Manager/Manager.ino">Manager.ino</a> is a complete example of an <a class="el" href="class_s_n_m_p.html" title="Base class for Agent and Manager.">SNMP</a> manager implementation.</p>
+<p><a href="https://github.com/patricklaf/SNMP/blob/master/examples/MPOD/MPOD.ino">MPOD.ino</a> is another example of an <a class="el" href="class_s_n_m_p.html" title="Base class for Agent and Manager.">SNMP</a> manager implementation with use of SETREQUEST.</p>
+<p><a href="https://github.com/patricklaf/SNMP/blob/master/examples/Advanced/Advanced.ino">Advanced.ino</a> is the more complete example. It shows how to write an <a class="el" href="class_s_n_m_p.html" title="Base class for Agent and Manager.">SNMP</a> agent able to handle GETREQUEST, GETNEXTREQUEST, GETBULKREQUEST and SETREQUEST and to generate TRAP, INFORMREQUEST and SNMPV2TRAP.</p>
 <p>It uses PROGMEM to save enough RAM to allow the sketch to be run even on a basic Arduino Uno board.</p>
 <h1><a class="anchor" id="autotoc_md6"></a>
 Limitations</h1>
@@ -322,21 +322,6 @@ Limitations</h1>
 <p>The values ​​of OctetString and ObjectIdentifier objects are now dynamically allocated. The size is limited only by the available memory.</p>
 <p>To achieve compatibility with low-end boards like Arduino Uno, the code has been stripped down and almost no checking is done.</p>
 <p>For example, when creating an OpaqueBER, the library assumes that the embedded BER parameter passed to the constructor is not null. If null, code will crash as soon as embedded BER members or functions are accessed.</p>
-<p>&lt;!!&ndash; </p><table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Version   </th><th class="markdownTableHeadRight">.data   </th><th class="markdownTableHeadRight">.text   </th><th class="markdownTableHeadRight">.bss   </th><th class="markdownTableHeadRight">RAM   </th><th class="markdownTableHeadRight">Total   </th><th class="markdownTableHeadNone">Note    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">1.4.1   </td><td class="markdownTableBodyRight">798   </td><td class="markdownTableBodyRight">23206   </td><td class="markdownTableBodyRight">320   </td><td class="markdownTableBodyRight">1118   </td><td class="markdownTableBodyRight">24324   </td><td class="markdownTableBodyNone">Not working    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">2.0.0 <strike>no bulk</strike>   </td><td class="markdownTableBodyRight">572   </td><td class="markdownTableBodyRight">21580   </td><td class="markdownTableBodyRight">308   </td><td class="markdownTableBodyRight">880   </td><td class="markdownTableBodyRight">22460   </td><td class="markdownTableBodyNone">Working    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"></td><td class="markdownTableBodyRight">72%   </td><td class="markdownTableBodyRight">93%   </td><td class="markdownTableBodyRight">96%   </td><td class="markdownTableBodyRight">79%   </td><td class="markdownTableBodyRight">92%   </td><td class="markdownTableBodyNone"></td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">2.0.0   </td><td class="markdownTableBodyRight">572   </td><td class="markdownTableBodyRight">21750   </td><td class="markdownTableBodyRight">308   </td><td class="markdownTableBodyRight">880   </td><td class="markdownTableBodyRight">22630   </td><td class="markdownTableBodyNone">Working    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"></td><td class="markdownTableBodyRight">72%   </td><td class="markdownTableBodyRight">94%   </td><td class="markdownTableBodyRight">96%   </td><td class="markdownTableBodyRight">79%   </td><td class="markdownTableBodyRight">93%   </td><td class="markdownTableBodyNone"></td></tr>
-</table>
-<p>--&gt;</p>
 <h1><a class="anchor" id="autotoc_md7"></a>
 Migrate to version 2.0.0</h1>
 <p>Minor changes are required when migrating existing code to version 2.0.0 of the library.</p>
