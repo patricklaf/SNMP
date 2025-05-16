@@ -597,8 +597,6 @@ public:
                 _length += stream.read();
             }
             _size++;
-        } else {
-            _size = 1;
         }
     }
 #else
@@ -646,6 +644,7 @@ public:
                 _length <<= 8;
                 _length += *pointer++;
             }
+            _size++;
         }
         return pointer;
     }
