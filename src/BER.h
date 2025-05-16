@@ -620,8 +620,8 @@ public:
             pointer += _size - 1;
 
             unsigned int value = _length;
-            for (uint8_t index = 0; index < (_size-1); ++index) {
-                *pointer-- = static_cast<uint8_t>(value & 0xFF);
+            for (uint8_t index = 0; index < _size - 1; ++index) {
+                *pointer-- = value;
                 value >>= 8;
             }
         } else {
