@@ -573,7 +573,7 @@ public:
         if (_length > 0x7F) {
             stream.write(0x80 | _size - 1);
             unsigned int length = _length;
-            for (uint8_t index = 0; index < (_size-1); ++index) {
+            for (uint8_t index = 0; index < _size - 1; ++index) {
                 stream.write(static_cast<uint8_t>((length >> (((_size-1) - index - 1) << 3)) & 0xFF));
             }
         } else {
