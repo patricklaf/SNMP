@@ -339,7 +339,7 @@ public:
      * @param generic Generic trap code.
      * @param specific Specific trap code.
      */
-    void setTrap(const uint8_t generic, const uint8_t specific = 0) {
+    void setTrap(const uint8_t generic, const uint32_t specific = 0) {
         _trap._genericTrap = generic;
         _trap._specificTrap = specific;
     }
