@@ -345,19 +345,24 @@ public:
     }
 
     /**
-     * @brief Sets the SNMPTRAPOID variable binding.
-
-     * @warning Valid only for InformRequest or SNMPv2Trap PDU.
+     * @brief Adds the mandatory variable bindings for an SNMPv2 trap or inform.
      *
-     * - Adds mandatory variable binding *sysUpTime.0*. Value will be set at build
-     * time.
-     *- Adds variable binding *snmpTrapOID.0* with value name.
+     * This function sets the required variable bindings for SNMPv2-Trap or InformRequest PDUs:
+     * - `sysUpTime.0` is automatically set at build time using `millis()` if not explicitly provided.
+     * - `snmpTrapOID.0` is set to the given `name` value.
      *
-     * @param name snmpTrapOID.0 value.
+     * @warning This function is only valid for InformRequest or SNMPv2-Trap PDUs.
+     *
+     * @param name The value to assign to `snmpTrapOID.0` (typically a trap OID string).
+     * @param sysuptime The system uptime in hundredths of a second. If set to 0 (default), 
+     *                  the value is automatically computed from `millis()`.
      */
-    void setSNMPTrapOID(const char *name) {
-//        add(OID::SYSUPTIME, new TimeTicksBER(0));
-        add(OID::SYSUPTIME, new TimeTicksBER(millis() / 10));
+    void setSNMPTrapOID(const char *name, uint32_t sysuptime = 0) {
+        if(sysuptime == 0) {
+            add(OID::SYSUPTIME, new TimeTicksBER(millis() / 10));
+        } else {
+            add(OID::SYSUPTIME, new TimeTicksBER(sysuptime));
+        }
         add(OID::SNMPTRAPOID, new ObjectIdentifierBER(name));
     }
 
