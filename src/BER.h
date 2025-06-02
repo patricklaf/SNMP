@@ -156,7 +156,7 @@ struct Trap {
     /** Generic trap code. */
     uint8_t _genericTrap;
     /** Specific trap code. */
-    uint8_t _specificTrap;
+    uint32_t _specificTrap;
     /** Time elapsed since device startup. */
     uint32_t _timeStamp;
 };
