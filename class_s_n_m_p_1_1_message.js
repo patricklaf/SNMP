@@ -28,7 +28,7 @@ var class_s_n_m_p_1_1_message =
     [ "setNonRepeaters", "class_s_n_m_p_1_1_message.html#a4d799f175400765f25282a585c951cd3", null ],
     [ "setRequestID", "class_s_n_m_p_1_1_message.html#a08d527a219ab96449affd6d276b063c4", null ],
     [ "setSNMPTrapOID", "class_s_n_m_p_1_1_message.html#a702e3b8da199f73a51380148d6ed7047", null ],
-    [ "setTrap", "class_s_n_m_p_1_1_message.html#a3ca5051ae496464f3f3d3585f4ea637f", null ],
+    [ "setTrap", "class_s_n_m_p_1_1_message.html#a2cfc1c74a2f8d53ecb0046034a9dd62d", null ],
     [ "SNMP", "class_s_n_m_p_1_1_message.html#a6e146e39435bc8d3b2591fbfd9bb7245", null ],
     [ "_community", "class_s_n_m_p_1_1_message.html#a2c9ffa332cdbf6283c7482228980c7cd", null ],
     [ "_type", "class_s_n_m_p_1_1_message.html#a18b0525f22a0b69b0db6c4cff73b0634", null ],

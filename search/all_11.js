@@ -1,7 +1,7 @@
 var searchData=
 [
   ['send_0',['send',['../class_s_n_m_p_1_1_s_n_m_p.html#a2b07468ab8fee2bc1f5061cf65055f25',1,'SNMP::SNMP']]],
-  ['sequence_1',['Sequence',['../class_s_n_m_p_1_1_type.html#a5265e769d6fab503e8b44bfcfa3ed29ca5dd4da2c5d3256616c6a589b578c895a',1,'SNMP::Type']]],
+  ['sequence_1',['Sequence',['../class_s_n_m_p_1_1_type.html#a824d67ba2f4b86e0e36ee87ef0b50438a5dd4da2c5d3256616c6a589b578c895a',1,'SNMP::Type']]],
   ['sequenceber_2',['SequenceBER',['../class_s_n_m_p_1_1_sequence_b_e_r.html',1,'SNMP::SequenceBER'],['../class_s_n_m_p_1_1_sequence_b_e_r.html#ab3913d575ba85209d6f2eb1923f5ebd1',1,'SNMP::SequenceBER::SequenceBER()']]],
   ['setagentaddress_3',['setAgentAddress',['../class_s_n_m_p_1_1_message.html#aab8f2ea9ec15c3b6ea3f28dd14cd2f17',1,'SNMP::Message']]],
   ['setenterprise_4',['setEnterprise',['../class_s_n_m_p_1_1_message.html#a8a29f8079b0fa61acd07424b23bfb2fb',1,'SNMP::Message']]],
@@ -12,18 +12,18 @@ var searchData=
   ['setnegative_9',['setNegative',['../class_s_n_m_p_1_1_b_e_r.html#a53aa1c478e691103dcb2f1b2d04051d2',1,'SNMP::BER']]],
   ['setnonrepeaters_10',['setNonRepeaters',['../class_s_n_m_p_1_1_message.html#a4d799f175400765f25282a585c951cd3',1,'SNMP::Message']]],
   ['setpositive_11',['setPositive',['../class_s_n_m_p_1_1_b_e_r.html#aeb09bfd0f72e4994728240572a344670',1,'SNMP::BER']]],
-  ['setrequest_12',['SetRequest',['../class_s_n_m_p_1_1_type.html#a5265e769d6fab503e8b44bfcfa3ed29cae4cb8340fcf8bb781eb55930693df9f0',1,'SNMP::Type']]],
+  ['setrequest_12',['SetRequest',['../class_s_n_m_p_1_1_type.html#a824d67ba2f4b86e0e36ee87ef0b50438ae4cb8340fcf8bb781eb55930693df9f0',1,'SNMP::Type']]],
   ['setrequestid_13',['setRequestID',['../class_s_n_m_p_1_1_message.html#a08d527a219ab96449affd6d276b063c4',1,'SNMP::Message']]],
   ['setsnmptrapoid_14',['setSNMPTrapOID',['../class_s_n_m_p_1_1_message.html#a702e3b8da199f73a51380148d6ed7047',1,'SNMP::Message']]],
-  ['settrap_15',['setTrap',['../class_s_n_m_p_1_1_message.html#a3ca5051ae496464f3f3d3585f4ea637f',1,'SNMP::Message']]],
+  ['settrap_15',['setTrap',['../class_s_n_m_p_1_1_message.html#a2cfc1c74a2f8d53ecb0046034a9dd62d',1,'SNMP::Message']]],
   ['settype_16',['setType',['../class_s_n_m_p_1_1_type.html#a0b8d64eb7037268b53ab4e49369f50fa',1,'SNMP::Type']]],
   ['setvalue_17',['setValue',['../class_s_n_m_p_1_1_boolean_b_e_r.html#ac07033d7d9b61cf0ff912c83ee2a5e2b',1,'SNMP::BooleanBER::setValue()'],['../class_s_n_m_p_1_1_integer_b_e_r.html#ae00cde1a400658c7fbfaf6f3f7e14140',1,'SNMP::IntegerBER::setValue()'],['../class_s_n_m_p_1_1_octet_string_b_e_r.html#aeeacd5610b416be265eac913af43e836',1,'SNMP::OctetStringBER::setValue()'],['../class_s_n_m_p_1_1_object_identifier_b_e_r.html#a72400c500c124d7725af0d8cd0533cb7',1,'SNMP::ObjectIdentifierBER::setValue()'],['../class_s_n_m_p_1_1_u_integer_b_e_r.html#a44fc31a4a8c41d8da4cc204cb0becc23',1,'SNMP::UIntegerBER::setValue()'],['../class_s_n_m_p_1_1_float_b_e_r.html#aec8dc1107b12ec127e4c39a5d1472f62',1,'SNMP::FloatBER::setValue()']]],
   ['size_18',['SIZE',['../class_s_n_m_p_1_1_boolean_b_e_r.html#a974621925d8a4c4c91c918c6d0f06c2f',1,'SNMP::BooleanBER']]],
-  ['snmp_19',['SNMP',['../class_s_n_m_p.html',1,'SNMP'],['../class_s_n_m_p_1_1_s_n_m_p.html',1,'SNMP::SNMP'],['../namespace_s_n_m_p.html',1,'SNMP'],['../struct_s_n_m_p_1_1_port.html#aa9f3bae6b605219a87e5c5a4be874d19',1,'SNMP::Port::SNMP'],['../class_s_n_m_p_1_1_message.html#a6e146e39435bc8d3b2591fbfd9bb7245',1,'SNMP::Message::SNMP'],['../class_s_n_m_p_1_1_s_n_m_p.html#adc37be34ec393329bb69c638d8d37aa6',1,'SNMP::SNMP::SNMP()'],['../index.html',1,'SNMP']]],
+  ['snmp_19',['SNMP',['../class_s_n_m_p.html',1,'SNMP'],['../class_s_n_m_p_1_1_s_n_m_p.html',1,'SNMP::SNMP'],['../namespace_s_n_m_p.html',1,'SNMP'],['../struct_s_n_m_p_1_1_port.html#aa9f3bae6b605219a87e5c5a4be874d19',1,'SNMP::Port::SNMP'],['../class_s_n_m_p_1_1_message.html#a6e146e39435bc8d3b2591fbfd9bb7245',1,'SNMP::Message::SNMP()'],['../class_s_n_m_p_1_1_s_n_m_p.html#adc37be34ec393329bb69c638d8d37aa6',1,'SNMP::SNMP::SNMP()'],['../md__r_e_a_d_m_e.html',1,'SNMP']]],
   ['snmp_2eh_20',['SNMP.h',['../_s_n_m_p_8h.html',1,'']]],
   ['snmpmessage_2eh_21',['SNMPMessage.h',['../_s_n_m_p_message_8h.html',1,'']]],
   ['snmptrapenterprise_22',['SNMPTRAPENTERPRISE',['../class_s_n_m_p_1_1_message_1_1_o_i_d.html#adc9dc9667fed439832be913571384ba4',1,'SNMP::Message::OID']]],
   ['snmptrapoid_23',['SNMPTRAPOID',['../class_s_n_m_p_1_1_message_1_1_o_i_d.html#a80a4a68e5f30935c09898bb580a79744',1,'SNMP::Message::OID']]],
-  ['snmpv2trap_24',['SNMPv2Trap',['../class_s_n_m_p_1_1_type.html#a5265e769d6fab503e8b44bfcfa3ed29cab4c8e1925793e12064b76b820f7257ed',1,'SNMP::Type']]],
+  ['snmpv2trap_24',['SNMPv2Trap',['../class_s_n_m_p_1_1_type.html#a824d67ba2f4b86e0e36ee87ef0b50438ab4c8e1925793e12064b76b820f7257ed',1,'SNMP::Type']]],
   ['sysuptime_25',['SYSUPTIME',['../class_s_n_m_p_1_1_message_1_1_o_i_d.html#af6fa7be1545a2a8a58145946ad9b73b5',1,'SNMP::Message::OID']]]
 ];

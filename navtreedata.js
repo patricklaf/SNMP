@@ -25,15 +25,17 @@
 var NAVTREE =
 [
   [ "SNMP", "index.html", [
-    [ "Compatibility", "index.html#autotoc_md1", null ],
-    [ "Configuration", "index.html#autotoc_md2", null ],
-    [ "Usage", "index.html#autotoc_md3", [
-      [ "Agent", "index.html#autotoc_md4", null ],
-      [ "Manager", "index.html#autotoc_md5", null ]
+    [ "SNMP", "md__r_e_a_d_m_e.html", [
+      [ "Compatibility", "md__r_e_a_d_m_e.html#autotoc_md1", null ],
+      [ "Configuration", "md__r_e_a_d_m_e.html#autotoc_md2", null ],
+      [ "Usage", "md__r_e_a_d_m_e.html#autotoc_md3", [
+        [ "Agent", "md__r_e_a_d_m_e.html#autotoc_md4", null ],
+        [ "Manager", "md__r_e_a_d_m_e.html#autotoc_md5", null ]
+      ] ],
+      [ "Limitations", "md__r_e_a_d_m_e.html#autotoc_md6", null ],
+      [ "Migrate to version 2.0.0", "md__r_e_a_d_m_e.html#autotoc_md7", null ],
+      [ "Acknowledgements", "md__r_e_a_d_m_e.html#autotoc_md8", null ]
     ] ],
-    [ "Limitations", "index.html#autotoc_md6", null ],
-    [ "Migrate to version 2.0.0", "index.html#autotoc_md7", null ],
-    [ "Acknowledgements", "index.html#autotoc_md8", null ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ]
     ] ],
@@ -60,8 +62,8 @@ var NAVTREEINDEX =
 [
 "_b_e_r_8cpp.html",
 "class_s_n_m_p_1_1_message.html#a88cd0c61bf151a3acd380c065e7590b1",
-"index.html#autotoc_md3"
+"md__r_e_a_d_m_e.html#autotoc_md2"
 ];
 
-var SYNCONMSG = 'click to disable panel synchronisation';
-var SYNCOFFMSG = 'click to enable panel synchronisation';
+var SYNCONMSG = 'click to disable panel synchronization';
+var SYNCOFFMSG = 'click to enable panel synchronization';
