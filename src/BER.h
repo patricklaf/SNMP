@@ -300,7 +300,7 @@ public:
         TimeTicks,                                                                                          /**< 0x43 */
         Opaque,                                                                                             /**< 0x44 */
         Counter64 = static_cast<int32_t>(Class::Application) | 0x06,                                        /**< 0x46 */
-    Float = static_cast<int32_t>(Class::Application) | 0x08,                                                /**< 0x48 */
+        Float = static_cast<int32_t>(Class::Application) | 0x08,                                            /**< 0x48 */
         // Context
         NoSuchObject = static_cast<int32_t>(Class::Context) | 0x00,                                         /**< 0x80 */
         NoSuchInstance,                                                                                     /**< 0x81 */
@@ -2642,3 +2642,4 @@ public:
 }  // namespace SNMP
 
 #endif /* BER_H_ */
+
