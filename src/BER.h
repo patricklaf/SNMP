@@ -7,25 +7,31 @@
 #ifdef __has_include
 #if __has_include("SNMPcfg.h")
 #include "SNMPcfg.h"
-#else
+#endif
+#endif
+
 /**
  * @def SNMP_STREAM
  * @brief Defines read and write operations.
  */
+#ifndef SNMP_STREAM
 #define SNMP_STREAM 1
+#endif
 
 /**
  * @def SNMP_VECTOR
  * @brief Defines storage for ArrayBER.
  */
+#ifndef SNMP_VECTOR
 #define SNMP_VECTOR 0
+#endif
 
 /**
  * @def SNMP_CAPACITY
  * @brief Defines capacity of SequenceBER.
  */
+#ifndef SNMP_CAPACITY
 #define SNMP_CAPACITY 6
-#endif
 #endif
 
 #if SNMP_STREAM
