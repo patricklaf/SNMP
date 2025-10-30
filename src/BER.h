@@ -286,27 +286,27 @@ public:
      */
     enum : uint16_t {
         // Universal
-        Boolean = static_cast<int32_t>(Class::Universal) | static_cast<int32_t>(Form::Primitive) | 0x01,    /**< 0x01 */
+        Boolean = +Class::Universal | +Form::Primitive | 0x01,                                              /**< 0x01 */
         Integer,                                                                                            /**< 0x02 */
         BitString,                                                                                          /**< 0x03 */
         OctetString,                                                                                        /**< 0x04 */
         Null,                                                                                               /**< 0x05 */
         ObjectIdentifier,                                                                                   /**< 0x06 */
-        Sequence = static_cast<int32_t>(Class::Universal) | static_cast<int32_t>(Form::Constructed) | 0x10, /**< 0x30 */
+        Sequence = +Class::Universal | +Form::Constructed | 0x10,                                           /**< 0x30 */
         // Application
-        IPAddress = static_cast<int32_t>(Class::Application) | 0x00,                                        /**< 0x40 */
+        IPAddress = +Class::Application | 0x00,                                                             /**< 0x40 */
         Counter32,                                                                                          /**< 0x41 */
         Gauge32,                                                                                            /**< 0x42 */
         TimeTicks,                                                                                          /**< 0x43 */
         Opaque,                                                                                             /**< 0x44 */
-        Counter64 = static_cast<int32_t>(Class::Application) | 0x06,                                        /**< 0x46 */
-        Float = static_cast<int32_t>(Class::Application) | 0x08,                                            /**< 0x48 */
+        Counter64 = +Class::Application | 0x06,                                                             /**< 0x46 */
+        Float = +Class::Application | 0x08,                                                                 /**< 0x48 */
         // Context
-        NoSuchObject = static_cast<int32_t>(Class::Context) | 0x00,                                         /**< 0x80 */
+        NoSuchObject = +Class::Context | 0x00,                                                              /**< 0x80 */
         NoSuchInstance,                                                                                     /**< 0x81 */
         EndOfMIBView,                                                                                       /**< 0x82 */
         // Version 1
-        GetRequest = static_cast<int32_t>(Class::Context) | static_cast<int32_t>(Form::Constructed) | 0x00, /**< 0xA0 */
+        GetRequest = +Class::Context | +Form::Constructed | 0x00,                                           /**< 0xA0 */
         GetNextRequest,                                                                                     /**< 0xA1 */
         GetResponse,                                                                                        /**< 0xA2 */
         SetRequest,                                                                                         /**< 0xA3 */
@@ -2642,4 +2642,5 @@ public:
 }  // namespace SNMP
 
 #endif /* BER_H_ */
+
 
