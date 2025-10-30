@@ -292,39 +292,39 @@ public:
      */
     enum : uint16_t {
         // Universal
-        Boolean = Class::Universal | Form::Primitive | 0x01,    /**< 0x01 */
-        Integer,                                                /**< 0x02 */
-        BitString,                                              /**< 0x03 */
-        OctetString,                                            /**< 0x04 */
-        Null,                                                   /**< 0x05 */
-        ObjectIdentifier,                                       /**< 0x06 */
-        Sequence = Class::Universal | Form::Constructed | 0x10, /**< 0x30 */
+        Boolean = +Class::Universal | +Form::Primitive | 0x01,                                              /**< 0x01 */
+        Integer,                                                                                            /**< 0x02 */
+        BitString,                                                                                          /**< 0x03 */
+        OctetString,                                                                                        /**< 0x04 */
+        Null,                                                                                               /**< 0x05 */
+        ObjectIdentifier,                                                                                   /**< 0x06 */
+        Sequence = +Class::Universal | +Form::Constructed | 0x10,                                           /**< 0x30 */
         // Application
-        IPAddress = Class::Application | 0x00,                  /**< 0x40 */
-        Counter32,                                              /**< 0x41 */
-        Gauge32,                                                /**< 0x42 */
-        TimeTicks,                                              /**< 0x43 */
-        Opaque,                                                 /**< 0x44 */
-        Counter64 = Class::Application | 0x06,                  /**< 0x46 */
-        Float = Class::Application | 0x08,                      /**< 0x48 */
+        IPAddress = +Class::Application | 0x00,                                                             /**< 0x40 */
+        Counter32,                                                                                          /**< 0x41 */
+        Gauge32,                                                                                            /**< 0x42 */
+        TimeTicks,                                                                                          /**< 0x43 */
+        Opaque,                                                                                             /**< 0x44 */
+        Counter64 = +Class::Application | 0x06,                                                             /**< 0x46 */
+        Float = +Class::Application | 0x08,                                                                 /**< 0x48 */
         // Context
-        NoSuchObject = Class::Context | 0x00,                   /**< 0x80 */
-        NoSuchInstance,                                         /**< 0x81 */
-        EndOfMIBView,                                           /**< 0x82 */
+        NoSuchObject = +Class::Context | 0x00,                                                              /**< 0x80 */
+        NoSuchInstance,                                                                                     /**< 0x81 */
+        EndOfMIBView,                                                                                       /**< 0x82 */
         // Version 1
-        GetRequest = Class::Context | Form::Constructed | 0x00, /**< 0xA0 */
-        GetNextRequest,                                         /**< 0xA1 */
-        GetResponse,                                            /**< 0xA2 */
-        SetRequest,                                             /**< 0xA3 */
-        Trap,                                                   /**< 0xA4 */
+        GetRequest = +Class::Context | +Form::Constructed | 0x00,                                           /**< 0xA0 */
+        GetNextRequest,                                                                                     /**< 0xA1 */
+        GetResponse,                                                                                        /**< 0xA2 */
+        SetRequest,                                                                                         /**< 0xA3 */
+        Trap,                                                                                               /**< 0xA4 */
         // Version 2C
-        GetBulkRequest,                                         /**< 0xA5 */
-        InformRequest,                                          /**< 0xA6 */
-        SNMPv2Trap,                                             /**< 0xA7 */
+        GetBulkRequest,                                                                                     /**< 0xA5 */
+        InformRequest,                                                                                      /**< 0xA6 */
+        SNMPv2Trap,                                                                                         /**< 0xA7 */
         // Version 3
-        Report,                                                 /**< 0xA8 */
+        Report,                                                                                             /**< 0xA8 */
         // Opaque type
-        OpaqueFloat = 0x9F78                                    /**< 0x9F78 */
+        OpaqueFloat = 0x9F78                                                                                /**< 0x9F78 */
     };
 
     /**
@@ -2670,3 +2670,5 @@ public:
 }  // namespace SNMP
 
 #endif /* BER_H_ */
+
+
